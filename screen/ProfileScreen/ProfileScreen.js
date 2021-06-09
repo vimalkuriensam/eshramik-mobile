@@ -50,7 +50,7 @@ const ProfileScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 40,
+    padding: 20,
   },
 });
 

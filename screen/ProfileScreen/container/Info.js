@@ -5,14 +5,12 @@ import DefaultText from "../../../components/atoms/DefaultText";
 
 import Title from "../../../components/atoms/Title";
 import FormInput from "../../../components/molecules/FormInput";
+import FormInputGroup from "../../../components/organisms/FormInputGroup";
+import { INFO_NAME_VALUES } from "../data";
 
 const Info = () => (
   <View>
-    <Title variant="pSecondaryBlue">Personal Information</Title>
-    <DefaultText variant="pn3Black">First Name</DefaultText>
-    <FormInput variant="primary" label="Name" />
-    <FormInput variant="secondary" label="Age" />
-    <DefaultButton title="Next" variant="primary" />
+    <FormInputGroup values={INFO_NAME_VALUES} onInputChange={() => {}} />
     <ScrollView></ScrollView>
   </View>
 );
