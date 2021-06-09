@@ -1,9 +1,13 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import Title from '../../../components/atoms/Title';
+import React from "react";
+import { ScrollView, Text, View } from "react-native";
 
-const Info = () => <View>
+import Title from "../../../components/atoms/Title";
+
+const Info = () => (
+  <View>
     <Title variant="pSecondaryBlue">Personal Information</Title>
-</View>
+    <ScrollView></ScrollView>
+  </View>
+);
 
 export default Info;
