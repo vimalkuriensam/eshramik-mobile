@@ -17,43 +17,43 @@ const tabScreenConfig = {
       tabBarLabel: "Personal Information",
     },
   },
-  qualification: {
+  Qualification: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Qualification",
     },
   },
-  profession: {
+  Profession: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Profession",
     },
   },
-  skill: {
+  Skill: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Skill",
     },
   },
-  empDet: {
+  EmployeeDetails: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Employment Details",
     },
   },
-  overseas: {
+  Overseas: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Overseas Opportunity",
     },
   },
-  documents: {
+  Documents: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Documents",
     },
   },
-  resume: {
+  Resume: {
     screen: ProfileScreen,
     navigationOptions: {
       tabBarLabel: "Resume Builder",
