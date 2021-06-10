@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/checkbox": "^0.5.8",
     "@react-navigation/native": "react-navigation/native",
     "expo": "~41.0.1",
     "expo-app-loading": "^1.0.3",
