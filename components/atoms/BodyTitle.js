@@ -4,12 +4,12 @@ import { Shade } from "../../static/Colors";
 
 const BodyTitle = ({
   variant = "primaryDark",
-  content = "default content",
   style,
+  children,
 }) => {
   return (
     <Text style={{ ...style, ...styles.default, ...styles[variant] }}>
-      {content}
+      {children}
     </Text>
   );
 };
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     color: Shade.tertiary,
   },
   secondary: {
-    fontSize: 16,
+    fontFamily: "poppins-medium",
   },
   tertiary: {
     fontFamily: "montserrat-medium",
