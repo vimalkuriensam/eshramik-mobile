@@ -1,20 +1,12 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { Colors } from "../../static/Colors";
+import { Colors, Shade } from "../../static/Colors";
 
-const DefaultText = ({
-  children,
-  style,
-  variant,
-  color = Colors.blackMain,
-}) => (
-  <Text style={{ color, ...styles.text, ...styles[variant], ...style }}>
-    {children}
-  </Text>
+const DefaultText = ({ children, style, variant, color = Shade.greyDark1 }) => (
+  <Text style={{ color, ...styles[variant], ...style }}>{children}</Text>
 );
 
 const styles = StyleSheet.create({
-  text: {},
   pn1Black: {
     fontFamily: "proximaNova-Regular",
     fontSize: 20.5,
@@ -84,10 +76,59 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     color: Colors.turquoise,
   },
+  // mr1: {
+  //   fontFamily: "montserrat-regular",
+  //   fontSize: 11,
+  //   color: Colors.white,
+  // },
+
+  pl1: {
+    fontFamily: "poppins-light",
+    fontSize: 17,
+  },
+  pl2: {
+    fontFamily: "poppins-light",
+    fontSize: 16,
+  },
+  "pl3-1": {
+    fontFamily: "poppins-light",
+    fontSize: 12,
+  },
+  "pl3-2": {
+    fontFamily: "poppins-light",
+    fontSize: 12,
+    color: Shade.tertiary,
+  },
+  pl4: {
+    fontFamily: "poppins-light",
+    fontSize: 10,
+    color: Shade.tertiary,
+  },
+  pr1: {
+    fontFamily: "poppins-regular",
+    fontSize: 16,
+  },
+  "pr2-1": {
+    fontFamily: "poppins-regular",
+    fontSize: 14,
+  },
+  "pr2-2": {
+    fontFamily: "poppins-regular",
+    fontSize: 14,
+    color: Shade.tertiary,
+  },
+  pr3: {
+    fontFamily: "poppins-regular",
+    fontSize: 13,
+  },
+  pr4: {
+    fontFamily: "poppins-regular",
+    fontSize: 10,
+  },
   mr1: {
     fontFamily: "montserrat-regular",
-    fontSize: 11,
-    color: Colors.white,
+    fontSize: 15,
+    color: Shade.primary,
   },
 });
 

@@ -33,6 +33,8 @@ const AuthNavigator = createStackNavigator({
   Auth: {
     screen: AuthScreen,
   },
+}, {
+  headerMode: false,
 });
 
 const RootNavigation = createSwitchNavigator({

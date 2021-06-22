@@ -14,10 +14,10 @@ const FormCheckbox = ({
   return (
     <View style={{ ...style, width }}>
       <View style={styles.container}>
-        <DefaultText variant="pn2Black">{textCapitalize(label)}</DefaultText>
         <View style={styles.checkbox}>
           <DefaultCheckbox value={value} onCheckboxValue={onSetCheckboxValue} />
         </View>
+        <DefaultText variant="pn2Black">{textCapitalize(label)}</DefaultText>
       </View>
     </View>
   );
