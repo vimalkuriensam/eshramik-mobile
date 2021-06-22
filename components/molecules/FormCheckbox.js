@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { textCapitalize } from "../../static";
+
 import DefaultCheckbox from "../atoms/DefaultCheckbox";
 import DefaultText from "../atoms/DefaultText";
 
 const FormCheckbox = ({
   onSetCheckboxValue,
-  label,
+  children,
   value = undefined,
   style,
   width = "100%",
@@ -17,7 +17,7 @@ const FormCheckbox = ({
         <View style={styles.checkbox}>
           <DefaultCheckbox value={value} onCheckboxValue={onSetCheckboxValue} />
         </View>
-        <DefaultText variant="pn2Black">{textCapitalize(label)}</DefaultText>
+        <DefaultText variant="pl1">{children}</DefaultText>
       </View>
     </View>
   );

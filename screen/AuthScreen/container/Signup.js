@@ -1,16 +1,16 @@
 import React from "react";
-import { StyleSheet, View, Image, ScrollView } from "react-native";
 
-import DefaultButton from "../../components/atoms/DefaultButton";
-import DefaultInput from "../../components/atoms/DefaultInput";
-import DefaultText from "../../components/atoms/DefaultText";
-import FormCheckbox from "../../components/molecules/FormCheckbox";
+import { View, Image, ScrollView, StyleSheet } from "react-native";
+import DefaultButton from "../../../components/atoms/DefaultButton";
+import DefaultInput from "../../../components/atoms/DefaultInput";
+import DefaultText from "../../../components/atoms/DefaultText";
+import FormCheckbox from "../../../components/molecules/FormCheckbox";
 
-const AuthScreen = () => {
+const Signup = () => {
   return (
     <ScrollView style={{ paddingHorizontal: 16 }}>
       <View style={styles.imageContainer}>
-        <Image source={require("../../assets/images/jobs-logo.png")} />
+        <Image source={require("../../../assets/images/jobs-logo.png")} />
       </View>
       <DefaultInput style={styles.loginInputStyle} placeholder="Name" />
       <DefaultInput style={styles.loginInputStyle} placeholder="Email Id" />
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     marginBottom: 88,
   },
   termsContainer: {
-    marginTop: 13.5
+    marginTop: 13.5,
   },
 });
 
-export default AuthScreen;
+export default Signup;
