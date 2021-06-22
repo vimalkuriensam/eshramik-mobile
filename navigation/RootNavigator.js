@@ -1,11 +1,9 @@
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { Colors } from "../static/Colors";
+import { Auth as AuthScreen } from "../screen";
 
 import ProfileTopTabNavigator from "./tabNavigation/ProfileTabNavigator";
-
-
-
 
 const ProfileNavigation = createStackNavigator(
   {
@@ -31,4 +29,15 @@ const ProfileNavigation = createStackNavigator(
   }
 );
 
-export default createAppContainer(ProfileNavigation);
+const AuthNavigator = createStackNavigator({
+  Auth: {
+    screen: AuthScreen,
+  },
+});
+
+const RootNavigation = createSwitchNavigator({
+  Auth: AuthNavigator,
+  Profile: ProfileNavigation,
+});
+
+export default createAppContainer(RootNavigation);

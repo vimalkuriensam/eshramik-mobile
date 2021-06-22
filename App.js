@@ -16,7 +16,7 @@ const fetchFonts = () =>
     "proximaNova-Regular": require("./assets/fonts/ProximaNova-Regular.otf"),
     "poppins-regular": require("./assets/fonts/Poppins-Regular.ttf"),
     "poppins-light": require("./assets/fonts/Poppins-Light.ttf"),
-    "poppins-medium": require("./assets/fonts/Poppins-Medium.otf"),
+    "poppins-medium": require("./assets/fonts/Poppins-Medium.ttf"),
   });
 
 const App = () => {
