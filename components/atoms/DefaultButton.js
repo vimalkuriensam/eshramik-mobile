@@ -14,7 +14,7 @@ const DefaultButton = ({ title, onButtonPress, variant, align = "center" }) => {
           alignSelf: align,
         }}
       >
-        <Text style={styles.primaryText}>{title}</Text>
+        <Text style={styles[`${variant}Text`]}>{title}</Text>
       </View>
     </TouchableNativeFeedback>
   );

@@ -2,9 +2,11 @@ import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { Colors, Shade } from "../../static/Colors";
 
-const DefaultText = ({ children, style, variant, color = Shade.greyDark1 }) => (
-  <Text style={{ color, ...styles[variant], ...style }}>{children}</Text>
-);
+const DefaultText = ({ children, style, variant, color = Shade.greyDark1 }) => {
+  return (
+    <Text style={{ color, ...styles[variant], ...style }}>{children}</Text>
+  );
+};
 
 const styles = StyleSheet.create({
   pn1Black: {

@@ -29,13 +29,19 @@ const ProfileNavigation = createStackNavigator(
   }
 );
 
-const AuthNavigator = createStackNavigator({
-  Auth: {
-    screen: AuthScreen,
+const AuthNavigator = createStackNavigator(
+  {
+    Login: {
+      screen: AuthScreen,
+    },
+    Signup: {
+      screen: AuthScreen,
+    },
   },
-}, {
-  headerMode: false,
-});
+  {
+    headerMode: false,
+  }
+);
 
 const RootNavigation = createSwitchNavigator({
   Auth: AuthNavigator,
