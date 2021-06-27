@@ -1,22 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { View, Image, ScrollView, StyleSheet } from "react-native";
+import { Alert, View, Image, ScrollView, StyleSheet } from "react-native";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import DefaultInput from "../../../components/atoms/DefaultInput";
 import DefaultText from "../../../components/atoms/DefaultText";
 import FormCheckbox from "../../../components/molecules/FormCheckbox";
 
-const Signup = () => {
+const Signup = ({ onSignupSubmit }) => {
+  const [signupValue, setSignupValue] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+  });
+
+  const [signupError, setSignupError] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+  });
+
+  const onHandleSignupValues = (type, e) => {
+    const { value, error } = e.target;
+    if (error) setSignupError((prevState) => ({ ...prevState, [type]: error }));
+    setSignupValue((prevState) => ({ ...prevState, [type]: value }));
+  };
+
+  const onHandleSignupSubmit = () => {
+    const errorMatch = Object.values(signupError).find((error) => !!error);
+    if (errorMatch)
+      Alert.alert("Error", errorMatch, [{ text: "OK", style: "cancel" }]);
+    // onSignupSubmit(signupValue);
+  };
+
   return (
     <ScrollView style={{ paddingHorizontal: 16 }}>
       <View style={styles.imageContainer}>
         <Image source={require("../../../assets/images/jobs-logo.png")} />
       </View>
-      <DefaultInput style={styles.loginInputStyle} placeholder="Name" />
-      <DefaultInput style={styles.loginInputStyle} placeholder="Email Id" />
       <DefaultInput
+        onTextChange={onHandleSignupValues.bind(this, "name")}
         style={styles.loginInputStyle}
+        placeholder="Name"
+      />
+      <DefaultInput
+        onTextChange={onHandleSignupValues.bind(this, "email")}
+        type="email"
+        value={signupValue.email}
+        style={styles.loginInputStyle}
+        placeholder="Email Id"
+        keyboardType="email-address"
+      />
+      <DefaultInput
+        onTextChange={onHandleSignupValues.bind(this, "mobile")}
+        style={styles.loginInputStyle}
+        value={signupValue.mobile}
+        type="number"
         placeholder="Mobile number"
+        keyboardType="phone-pad"
       />
       <FormCheckbox style={styles.termsContainer} width="90%">
         <DefaultText variant="pr2-1">
@@ -26,7 +66,11 @@ const Signup = () => {
         <DefaultText variant="pr2-1"> and </DefaultText>
         <DefaultText variant="pr2-2"> Privacy policies </DefaultText>
       </FormCheckbox>
-      <DefaultButton variant="primary" title="Sign Up" />
+      <DefaultButton
+        onButtonPress={onHandleSignupSubmit}
+        variant="primary"
+        title="Sign Up"
+      />
     </ScrollView>
   );
 };

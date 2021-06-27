@@ -4,8 +4,12 @@ import * as Font from "expo-font";
 import { enableScreens } from "react-native-screens";
 
 import RootNavigator from "./navigation/RootNavigator";
+import ConfigureStore from "./store/ConfigureStore";
+import { Provider } from "react-redux";
 
 enableScreens();
+
+const store = ConfigureStore();
 
 const fetchFonts = () =>
   Font.loadAsync({
@@ -31,7 +35,11 @@ const App = () => {
       />
     );
 
-  return <RootNavigator />;
+  return (
+    <Provider store={store}>
+      <RootNavigator />
+    </Provider>
+  );
 };
 
 export default App;
