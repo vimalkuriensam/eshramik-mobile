@@ -1,12 +1,20 @@
 import React from "react";
 import { StyleSheet, TouchableNativeFeedback, View, Text } from "react-native";
-import { Colors, Shade } from "../../static/Colors";
-import DefaultText from "./DefaultText";
-import Title from "./Title";
+import { ActivityIndicator } from "react-native-paper";
+import { Shade } from "../../static/Colors";
 
-const DefaultButton = ({ title, onButtonPress, variant, align = "center" }) => {
+const DefaultButton = ({
+  loader = false,
+  title,
+  onButtonPress,
+  variant,
+  align = "center",
+}) => {
   return (
-    <TouchableNativeFeedback onPress={onButtonPress} style={{marginHorizontal: 16}}>
+    <TouchableNativeFeedback
+      onPress={onButtonPress}
+      style={{ marginHorizontal: 16 }}
+    >
       <View
         style={{
           ...styles.button,
@@ -14,7 +22,11 @@ const DefaultButton = ({ title, onButtonPress, variant, align = "center" }) => {
           alignSelf: align,
         }}
       >
-        <Text style={styles[`${variant}Text`]}>{title}</Text>
+        {!loader ? (
+          <Text style={styles[`${variant}Text`]}>{title}</Text>
+        ) : (
+          <ActivityIndicator size="small" color={Shade.white} />
+        )}
       </View>
     </TouchableNativeFeedback>
   );
@@ -37,8 +49,7 @@ const styles = StyleSheet.create({
   primaryText: {
     color: "#fff",
     fontSize: 17,
-    fontFamily: "poppins-regular"
-    
+    fontFamily: "poppins-regular",
   },
   secondary: {},
 });

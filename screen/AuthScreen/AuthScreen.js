@@ -1,12 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { connect } from "react-redux";
-import { signup } from "../../store/actions/auth.action";
 
 import Login from "./container/Login";
+import OTP from "./container/OTP";
 import Signup from "./container/Signup";
 
-const AuthScreen = ({ dispatch, navigation }) => {
+const AuthScreen = ({ navigation }) => {
   const state = navigation.state.routeName;
 
   const onSignupRoute = () => {
@@ -15,11 +13,9 @@ const AuthScreen = ({ dispatch, navigation }) => {
     });
   };
 
-  const onSignupSubmit = ({ email, mobile, name }) => {
-    dispatch(signup({ email, mobile, name }));
-  };
   if (state === "Login") return <Login onSignupRoute={onSignupRoute} />;
-  return <Signup onSignupSubmit={onSignupSubmit} />;
+  else if (state === "Signup") return <Signup navigation={navigation} />;
+  return <OTP navigation={navigation} />;
 };
 
-export default connect()(AuthScreen);
+export default AuthScreen;

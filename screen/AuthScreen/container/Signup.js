@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
 import { Alert, View, Image, ScrollView, StyleSheet } from "react-native";
+import BodyTitle from "../../../components/atoms/BodyTitle";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import DefaultInput from "../../../components/atoms/DefaultInput";
 import DefaultText from "../../../components/atoms/DefaultText";
 import FormCheckbox from "../../../components/molecules/FormCheckbox";
+import { signup } from "../../../store/actions/auth.action";
+import { Shade } from "../../../static/Colors";
 
-const Signup = ({ onSignupSubmit }) => {
+const Signup = ({ dispatch, navigation }) => {
   const [signupValue, setSignupValue] = useState({
     name: "",
     email: "",
@@ -19,9 +23,12 @@ const Signup = ({ onSignupSubmit }) => {
     mobile: "",
   });
 
+  const [loading, setIsLoading] = useState(false);
+
   const onHandleSignupValues = (type, e) => {
     const { value, error } = e.target;
     if (error) setSignupError((prevState) => ({ ...prevState, [type]: error }));
+    else setSignupError((prevState) => ({ ...prevState, [type]: undefined }));
     setSignupValue((prevState) => ({ ...prevState, [type]: value }));
   };
 
@@ -29,13 +36,28 @@ const Signup = ({ onSignupSubmit }) => {
     const errorMatch = Object.values(signupError).find((error) => !!error);
     if (errorMatch)
       Alert.alert("Error", errorMatch, [{ text: "OK", style: "cancel" }]);
-    // onSignupSubmit(signupValue);
+    else {
+      setIsLoading(true);
+      dispatch(signup(signupValue))
+        .then(() => {
+          setIsLoading(false);
+          navigation.navigate("OTP", {
+            mobile: signupValue.mobile,
+          });
+        })
+        .catch((err) => setIsLoading(false));
+    }
   };
 
   return (
     <ScrollView style={{ paddingHorizontal: 16 }}>
       <View style={styles.imageContainer}>
         <Image source={require("../../../assets/images/jobs-logo.png")} />
+      </View>
+      <View style={styles.center}>
+        <BodyTitle style={{ color: Shade.greyDark2 }} variant="secondary">
+          Sign up
+        </BodyTitle>
       </View>
       <DefaultInput
         onTextChange={onHandleSignupValues.bind(this, "name")}
@@ -70,12 +92,17 @@ const Signup = ({ onSignupSubmit }) => {
         onButtonPress={onHandleSignupSubmit}
         variant="primary"
         title="Sign Up"
+        loader={loading}
       />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   loginInputStyle: {
     marginVertical: 13.5,
   },
@@ -83,11 +110,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 66,
-    marginBottom: 88,
+    marginBottom: 66,
   },
   termsContainer: {
     marginTop: 13.5,
   },
 });
 
-export default Signup;
+export default connect()(Signup);

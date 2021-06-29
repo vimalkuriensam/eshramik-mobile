@@ -8,7 +8,7 @@ const apiService = () => {
 
   api.interceptors.request.use(async (config) => {
     try {
-      const token = ""//store.getState().user?.token;
+      const token = ""; //store.getState().user?.token;
       if (token) config.headers["Authorization"] = `Bearer ${token}`;
       config.headers["Content-Type"] = "application/json";
     } catch (e) {
@@ -23,9 +23,9 @@ const apiService = () => {
       if (!error.response)
         return new Promise((resolve, reject) => reject(error));
       if (error.response.status === 401) {
-
+        console.log("token expired");
       } else {
-          return Promise.reject(error);
+        return Promise.reject(error);
       }
     }
   );

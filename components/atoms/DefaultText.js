@@ -106,9 +106,15 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: Shade.tertiary,
   },
-  pr1: {
+  "pr1-1": {
     fontFamily: "poppins-regular",
     fontSize: 16,
+    color: Shade.greyDark1,
+  },
+  "pr1-2": {
+    fontFamily: "poppins-regular",
+    fontSize: 16,
+    color: Shade.tertiary,
   },
   "pr2-1": {
     fontFamily: "poppins-regular",

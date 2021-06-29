@@ -37,6 +37,9 @@ const AuthNavigator = createStackNavigator(
     Signup: {
       screen: AuthScreen,
     },
+    OTP: {
+      screen: AuthScreen,
+    },
   },
   {
     headerMode: false,
