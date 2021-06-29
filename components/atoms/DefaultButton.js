@@ -1,12 +1,20 @@
 import React from "react";
-import { StyleSheet, TouchableNativeFeedback, View } from "react-native";
-import { Colors } from "../../static/Colors";
-import DefaultText from "./DefaultText";
-import Title from "./Title";
+import { StyleSheet, TouchableNativeFeedback, View, Text } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
+import { Shade } from "../../static/Colors";
 
-const DefaultButton = ({ title, onButtonPress, variant, align = "center" }) => {
+const DefaultButton = ({
+  loader = false,
+  title,
+  onButtonPress,
+  variant,
+  align = "center",
+}) => {
   return (
-    <TouchableNativeFeedback onPress={onButtonPress}>
+    <TouchableNativeFeedback
+      onPress={onButtonPress}
+      style={{ marginHorizontal: 16 }}
+    >
       <View
         style={{
           ...styles.button,
@@ -14,15 +22,10 @@ const DefaultButton = ({ title, onButtonPress, variant, align = "center" }) => {
           alignSelf: align,
         }}
       >
-        {variant.includes("tertiary") ? (
-          <DefaultText
-            style={{ fontSize: variant === "tertiarySmall" ? 13.5 : 21 }}
-            variant="pn1White"
-          >
-            {title}
-          </DefaultText>
+        {!loader ? (
+          <Text style={styles[`${variant}Text`]}>{title}</Text>
         ) : (
-          <Title variant="pSecondaryWhite">{title}</Title>
+          <ActivityIndicator size="small" color={Shade.white} />
         )}
       </View>
     </TouchableNativeFeedback>
@@ -32,39 +35,23 @@ const DefaultButton = ({ title, onButtonPress, variant, align = "center" }) => {
 const styles = StyleSheet.create({
   button: {
     marginVertical: 20,
+    marginHorizontal: 16,
     alignItems: "center",
     justifyContent: "center",
   },
   primary: {
-    backgroundColor: Colors.primary,
-    width: 112,
-    height: 50,
+    backgroundColor: Shade.secondary,
+    width: "100%",
+    height: 44,
     borderRadius: 10,
+    paddingVertical: 10,
   },
-  secondarySmall: {
-    backgroundColor: Colors.primary,
-    width: 173,
-    height: 70,
-    borderRadius: 10,
+  primaryText: {
+    color: "#fff",
+    fontSize: 17,
+    fontFamily: "poppins-regular",
   },
-  secondaryLarge: {
-    backgroundColor: Colors.primary,
-    width: 290,
-    height: 70,
-    borderRadius: 10,
-  },
-  tertiaryGreen: {
-    backgroundColor: Colors.green,
-    width: 67,
-    height: 25,
-    borderRadius: 5,
-  },
-  tertiaryBlue: {
-    backgroundColor: Colors.turquoise,
-    width: 102,
-    height: 58,
-    borderRadius: 5,
-  },
+  secondary: {},
 });
 
 export default DefaultButton;
