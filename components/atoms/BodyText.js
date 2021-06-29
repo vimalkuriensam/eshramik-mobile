@@ -2,8 +2,8 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { Shade } from "../../static/Colors";
 
-const BodyText = ({ variant, style, children }) => (
-  <Text style={{ ...style, ...styles.default, ...styles[variant] }}>
+const BodyText = ({ variant, style, children, color }) => (
+  <Text style={{ ...style, ...styles.default, ...styles[variant], color }}>
     {children}
   </Text>
 );
@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
   secondaryDark1: {
     color: Shade.greyLight1,
   },
-  secondaryDark2: {
-  },
+  secondaryDark2: {},
   secondaryDark3: {
     fontSize: 17,
   },
