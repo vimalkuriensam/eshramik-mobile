@@ -1,33 +1,51 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import { Colors } from "../static/Colors";
 import { Auth as AuthScreen } from "../screen";
 
-import ProfileTopTabNavigator from "./tabNavigation/ProfileTabNavigator";
+import ProfileScreen from "../screen/ProfileScreen";
 
-const ProfileNavigation = createStackNavigator(
-  {
-    profile: {
-      screen: ProfileTopTabNavigator,
-      navigationOptions: {
-        headerTitle: "Create your Eshramik Resume",
-      },
+const tabScreenConfig = {
+  Info: {
+    screen: ProfileScreen,
+  },
+  Qualification: {
+    screen: ProfileScreen,
+  },
+  Profession: {
+    screen: ProfileScreen,
+  },
+  Skill: {
+    screen: ProfileScreen,
+  },
+  EmployeeDetails: {
+    screen: ProfileScreen,
+  },
+  Overseas: {
+    screen: ProfileScreen,
+  },
+  Documents: {
+    screen: ProfileScreen,
+  },
+  Resume: {
+    screen: ProfileScreen,
+  },
+};
+
+const ProfileNavigation = createStackNavigator(tabScreenConfig, {
+  defaultNavigationOptions: {
+    headerTitle: "Create your eshramik resume",
+    headerStyle: {
+      backgroundColor: "#FFE1A1",
+      height: 60,
+    },
+    headerTintColor: "#727272",
+    headerTitleStyle: {
+      alignSelf: "center",
+      fontFamily: "poppins-medium",
+      fontSize: 16,
     },
   },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: Colors.white,
-        height: 181.5,
-      },
-      headerTintColor: Colors.blackSecondary,
-      headerTitleStyle: {
-        fontFamily: "proximaA-bold",
-        fontSize: 25,
-      },
-    },
-  }
-);
+});
 
 const AuthNavigator = createStackNavigator(
   {
@@ -47,8 +65,8 @@ const AuthNavigator = createStackNavigator(
 );
 
 const RootNavigation = createSwitchNavigator({
-  Auth: AuthNavigator,
   Profile: ProfileNavigation,
+  Auth: AuthNavigator,
 });
 
 export default createAppContainer(RootNavigation);

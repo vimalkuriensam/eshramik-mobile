@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 
 import Documents from "./container/Documents";
 import EmployeeDetails from "./container/EmployeeDetails";
@@ -9,6 +10,7 @@ import Profession from "./container/Profession";
 import Qualification from "./container/Qualification";
 import Resume from "./container/Resume";
 import Skill from "./container/Skill";
+import { Shade } from "../../static/Colors";
 
 const ProfileScreen = ({ navigation }) => {
   useEffect(() => {
@@ -43,6 +45,7 @@ const ProfileScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.screen}>
+      <StatusBar currentHeight={"44"} backgroundColor={Shade.primary} style="light" />
       {getTabScreen(navigation.state.key)}
     </View>
   );
