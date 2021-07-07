@@ -14,9 +14,13 @@ const Stepper = ({
   return (
     <View style={styles.container}>
       <View style={styles.stepIndicator}>
-        <TouchableOpacity onPress={onHandleStepperPress.bind(this, -1)}>
-          <Ionicons name="chevron-back" size={40} color={Shade.tertiary} />
-        </TouchableOpacity>
+        {step > 1 ? (
+          <TouchableOpacity onPress={onHandleStepperPress.bind(this, -1)}>
+            <Ionicons name="chevron-back" size={40} color={Shade.tertiary} />
+          </TouchableOpacity>
+        ) : (
+          <Text style={{ marginLeft: 40 }}>&nbsp;</Text>
+        )}
         <View style={styles.info}>
           <View style={styles.value}>
             <Text style={styles.number}>{step}</Text>
@@ -28,9 +32,13 @@ const Stepper = ({
             {title}
           </BodyTitle>
         </View>
-        <TouchableOpacity onPress={onHandleStepperPress.bind(this, 1)}>
-          <Ionicons name="chevron-forward" size={40} color={Shade.tertiary} />
-        </TouchableOpacity>
+        {step < total ? (
+          <TouchableOpacity onPress={onHandleStepperPress.bind(this, 1)}>
+            <Ionicons name="chevron-forward" size={40} color={Shade.tertiary} />
+          </TouchableOpacity>
+        ) : (
+          <Text style={{ marginRight: 40 }}>&nbsp;</Text>
+        )}
       </View>
     </View>
   );
