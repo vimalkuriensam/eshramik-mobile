@@ -15,7 +15,13 @@ import BodyText from "../atoms/BodyText";
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
-const Dropdown = ({ content = [], value = "", onItemPress }) => {
+const Dropdown = ({
+  content = [],
+  value = "",
+  onItemPress,
+  style,
+  placeholder = "",
+}) => {
   const [selectedValue, setSelectedValue] = useState("");
   const [visibility, setVisibility] = useState(false);
 
@@ -47,11 +53,11 @@ const Dropdown = ({ content = [], value = "", onItemPress }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...style, ...styles.container }}>
       <TouchableWithoutFeedback onPress={onHandleModalVisibility}>
         <View style={styles.inputContainer}>
           <View style={styles.display}>
-            <BodyText variant="secondaryDark3">{selectedValue}</BodyText>
+            <BodyText variant="secondaryDark3">{selectedValue || placeholder}</BodyText>
           </View>
           <View style={styles.arrowContainer}>
             <View style={styles.arrowDown}></View>
@@ -98,7 +104,7 @@ const styles = StyleSheet.create({
   display: {
     height: 44,
     backgroundColor: Shade.greyLight1,
-    width: "87%",
+    width: "85%",
     borderRadius: 10,
     overflow: "hidden",
     paddingHorizontal: 15,
@@ -108,7 +114,8 @@ const styles = StyleSheet.create({
     backgroundColor: Shade.secondary,
     justifyContent: "center",
     alignContent: "center",
-    width: "13%",
+    width: "15%",
+    paddingHorizontal: 20,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
   },
