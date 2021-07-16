@@ -19,7 +19,12 @@ const FormCheckbox = ({
           <DefaultText variant="pr1-1">{children}</DefaultText>
         )}
         <View style={styles.checkbox}>
-          <DefaultCheckbox value={value} onCheckboxValue={onSetCheckboxValue} />
+          <DefaultCheckbox
+            value={value}
+            onCheckboxValue={(val) => {
+              onSetCheckboxValue(val);
+            }}
+          />
         </View>
         {variant === "1" && <DefaultText variant="pl1">{children}</DefaultText>}
       </View>

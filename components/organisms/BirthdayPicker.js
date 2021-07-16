@@ -46,7 +46,7 @@ const BirthdayPicker = ({ title, onHandleBirthday }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <DefaultText variant="pr1-1">{title}</DefaultText>
       <View style={styles.dropGroup}>
         <Dropdown
@@ -75,6 +75,9 @@ const BirthdayPicker = ({ title, onHandleBirthday }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 10,
+  },
   dropGroup: {
     flexDirection: "row",
     width: "90%",

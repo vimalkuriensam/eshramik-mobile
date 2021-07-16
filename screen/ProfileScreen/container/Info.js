@@ -8,6 +8,7 @@ import FormInput from "../../../components/molecules/FormInput";
 import BirthdayPicker from "../../../components/organisms/BirthdayPicker";
 import FormDropdownGroup from "../../../components/organisms/FormDropdownGroup";
 import { INFO_NAME_VALUES } from "../data";
+import DefaultRadio from "../../../components/atoms/DefaultRadio";
 
 const Info = () => {
   const [infoProps, setInfoProps] = useState({
@@ -19,6 +20,7 @@ const Info = () => {
     state: "",
     city: "",
     district: "",
+    sameAsAddress: undefined,
     perm_houseNumber: "",
     perm_streetLocality: "",
     perm_pincode: "",
@@ -39,9 +41,10 @@ const Info = () => {
         value={infoProps.fullname}
         onInputChange={onHandleInfoProps("fullname")}
       />
+      <DefaultRadio contents={["Male", "Female", "Others"]} />
       <BirthdayPicker
         title="Date of Birthday"
-        onHandleBirthday={(val) => console.log(val)}
+        onHandleBirthday={onHandleInfoProps("dob")}
       />
       <FormInput
         variant="secondary"
@@ -79,7 +82,11 @@ const Info = () => {
         onItemPress={onHandleInfoProps("district")}
         content={["Kottayam", "ABC"]}
       />
-      <FormCheckbox variant="2">
+      <FormCheckbox
+        variant="2"
+        value={infoProps.sameAsAddress}
+        onSetCheckboxValue={onHandleInfoProps("sameAsAddress")}
+      >
         <DefaultText variant="pr1-1">
           Permanent Address{" "}
           <DefaultText variant="pr1-2">same as above</DefaultText>
