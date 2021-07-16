@@ -9,6 +9,7 @@ import BirthdayPicker from "../../../components/organisms/BirthdayPicker";
 import FormDropdownGroup from "../../../components/organisms/FormDropdownGroup";
 import { INFO_NAME_VALUES } from "../data";
 import DefaultRadio from "../../../components/atoms/DefaultRadio";
+import FormRadio from "../../../components/molecules/FormRadio";
 
 const Info = () => {
   const [infoProps, setInfoProps] = useState({
@@ -41,7 +42,18 @@ const Info = () => {
         value={infoProps.fullname}
         onInputChange={onHandleInfoProps("fullname")}
       />
-      <DefaultRadio contents={["Male", "Female", "Others"]} />
+      <FormRadio
+        variant="secondary"
+        label="Gender"
+        contents={["Male", "Female", "Others"]}
+        onHandleCheckbox={val => console.log(val)}
+      />
+      <FormRadio
+        variant="secondary"
+        label="Marital Status"
+        contents={["Married", "Unmarried"]}
+        onHandleCheckbox={val => console.log(val)}
+      />
       <BirthdayPicker
         title="Date of Birthday"
         onHandleBirthday={onHandleInfoProps("dob")}

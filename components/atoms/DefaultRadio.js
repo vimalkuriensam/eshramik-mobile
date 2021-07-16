@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import DefaultCheckbox from "./DefaultCheckbox";
 import DefaultText from "./DefaultText";
 
-const DefaultRadio = ({ contents = [], contentPerColumn = 3 }) => {
-  //   const ref = useRef();
+const DefaultRadio = ({
+  contents = [],
+  contentPerColumn = 3,
+  onHandleCheckbox,
+  value = undefined,
+}) => {
+  const ref = useRef();
+  const [val, setVal] = useState(value);
+
+  useEffect(() => {
+    console.log(val);
+  }, [val]);
+
+  const onCheckboxValue = (checkboxValue) => {
+    setVal(checkboxValue);
+    onHandleCheckbox(checkboxValue);
+  };
+
   const maxRowLength = Math.ceil(contents.length / contentPerColumn);
   const rows = [...Array(maxRowLength)];
   const radioRows = rows.map((row, index) =>
@@ -17,7 +33,10 @@ const DefaultRadio = ({ contents = [], contentPerColumn = 3 }) => {
     <View key={index} style={styles.radioRow}>
       {row.map((col, idx) => (
         <View key={idx} style={styles.radio}>
-          <DefaultCheckbox />
+          <DefaultCheckbox
+            value={col == val}
+            onCheckboxValue={onCheckboxValue.bind(this, col)}
+          />
           <DefaultText style={styles.radioText} variant="pl2">
             {col}
           </DefaultText>
@@ -41,7 +60,7 @@ const styles = StyleSheet.create({
   },
   radioText: {
     marginTop: 5,
-    marginLeft: 3
+    marginLeft: 3,
   },
 });
 
