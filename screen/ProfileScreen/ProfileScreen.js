@@ -13,22 +13,12 @@ import Skill from "./container/Skill";
 import { Shade } from "../../static/Colors";
 import Stepper from "./container/Stepper";
 import { PROFILE_TAB_INFO } from "./data";
-import { connect } from "react-redux";
 
-const ProfileScreen = ({ navigation, auth }) => {
-  console.log(auth);
+const ProfileScreen = ({ navigation }) => {
   const [tabInfo, setTabInfo] = useState({
     position: null,
     title: null,
   });
-  // console.log(navigation.state.routeName, navigation.state.key)
-  // useEffect(() => {
-  //   const willFocusSub = navigation.addListener(
-  //     "willFocus",
-  //     getTabScreen.bind(this, navigation.state.routeName)
-  //   );
-  //   return () => willFocusSub.remove();
-  // }, [navigation.state.key]);
 
   useEffect(() => {
     const match = PROFILE_TAB_INFO.find(
@@ -93,8 +83,5 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
 
-export default connect(mapStateToProps)(ProfileScreen);
+export default ProfileScreen;

@@ -65,8 +65,8 @@ const AuthNavigator = createStackNavigator(
 );
 
 const RootNavigation = createSwitchNavigator({
-  Auth: AuthNavigator,
   Profile: ProfileNavigation,
+  Auth: AuthNavigator,
 });
 
 export default createAppContainer(RootNavigation);

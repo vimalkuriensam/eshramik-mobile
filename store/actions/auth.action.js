@@ -4,6 +4,7 @@ export const AUTH = {
   LOGIN: "LOGIN",
   SIGNUP: "SIGNUP",
   SET_TOKEN: "SET_TOKEN",
+  SET_LOGOUT: "SET_LOGOUT",
 };
 
 export const login = () => async (dispatch) => {
@@ -66,4 +67,8 @@ export const setToken = ({ accessToken, refreshToken }) => ({
     accessToken,
     refreshToken,
   },
+});
+
+export const logout = () => ({
+  type: AUTH.SET_LOGOUT,
 });

@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 
 import RootNavigator from "./navigation/RootNavigator";
 import { store, persistor } from "./store/ConfigureStore";
+import NavigationContainer from "./navigation/NavigationContainer";
 
 enableScreens();
 
@@ -37,7 +38,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <RootNavigator />
+        <NavigationContainer />
       </PersistGate>
     </Provider>
   );

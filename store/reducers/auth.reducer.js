@@ -14,6 +14,12 @@ const authReducer = (state = authReducerDefaultState, { type, payload }) => {
       return { ...state, ...payload };
     case AUTH.SET_TOKEN:
       return { ...state, ...payload };
+    case AUTH.SET_LOGOUT:
+      return {
+        ...state,
+        accessToken: null,
+        refreshToken: null,
+      };
     default:
       return state;
   }
