@@ -5,7 +5,7 @@ import BodyTitle from "../atoms/BodyTitle";
 import DefaultText from "../atoms/DefaultText";
 import Title from "../atoms/Title";
 
-const FormInput = ({ variant, label, onInputChange, ...rest }) => {
+const FormInput = ({ variant, label, style, onInputChange, ...rest }) => {
   const getLabel = () => {
     switch (variant) {
       case "primary":
@@ -21,7 +21,11 @@ const FormInput = ({ variant, label, onInputChange, ...rest }) => {
       <View style={styles.labelContainer}>{getLabel()}</View>
       <View>
         <TextInput
-          style={{ ...styles.input, height: variant === "primary" ? 32 : 54 }}
+          style={{
+            ...styles.input,
+            height: variant === "primary" ? 32 : 54,
+            ...style,
+          }}
           onChangeText={onInputChange}
           {...rest}
         />

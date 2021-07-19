@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import DefaultCheckbox from "./DefaultCheckbox";
 import DefaultText from "./DefaultText";
@@ -7,14 +7,11 @@ const DefaultRadio = ({
   contents = [],
   contentPerColumn = 3,
   onHandleCheckbox,
+  style,
   value = undefined,
 }) => {
   const ref = useRef();
   const [val, setVal] = useState(value);
-
-  useEffect(() => {
-    console.log(val);
-  }, [val]);
 
   const onCheckboxValue = (checkboxValue) => {
     setVal(checkboxValue);
@@ -30,7 +27,7 @@ const DefaultRadio = ({
     )
   );
   const radioList = radioRows.map((row, index) => (
-    <View key={index} style={styles.radioRow}>
+    <View key={index} style={{ ...styles.radioRow, ...style }}>
       {row.map((col, idx) => (
         <View key={idx} style={styles.radio}>
           <DefaultCheckbox
@@ -57,6 +54,7 @@ const styles = StyleSheet.create({
   radio: {
     flexDirection: "row",
     alignItems: "center",
+    marginHorizontal: 7,
   },
   radioText: {
     marginTop: 5,

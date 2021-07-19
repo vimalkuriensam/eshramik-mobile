@@ -47,7 +47,7 @@ const OTP = ({ navigation, dispatch }) => {
 
   const refCallback = (textInputRef) => (node) => (textInputRef.current = node);
 
-  const mobile = navigation.getParam('mobile');
+  const mobile = navigation.getParam("mobile");
 
   const onHandleOTP =
     (index) =>
@@ -90,7 +90,10 @@ const OTP = ({ navigation, dispatch }) => {
           mobile,
         })
       )
-        .then(() => setLoader(false))
+        .then(() => {
+          setLoader(false);
+          navigation.navigate("Profile");
+        })
         .catch((err) => {
           setLoader(false);
           setError(true);
@@ -191,5 +194,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+
 
 export default connect()(OTP);

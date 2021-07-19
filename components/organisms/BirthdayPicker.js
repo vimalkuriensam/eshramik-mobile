@@ -6,7 +6,12 @@ import moment from "moment";
 import DefaultText from "../atoms/DefaultText";
 import Dropdown from "../molecules/Dropdown";
 
-const BirthdayPicker = ({ title, onHandleBirthday }) => {
+const BirthdayPicker = ({
+  title,
+  onHandleBirthday,
+  style,
+  type = { year: true, month: true, day: true },
+}) => {
   const getYears = () => {
     let yearList = [];
     const yearNow = moment().format("YYYY");
@@ -46,29 +51,35 @@ const BirthdayPicker = ({ title, onHandleBirthday }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <DefaultText variant="pr1-1">{title}</DefaultText>
+    <View style={{ ...styles.container, ...style }}>
+      {title && <DefaultText variant="pr1-1">{title}</DefaultText>}
       <View style={styles.dropGroup}>
-        <Dropdown
-          value={date.day}
-          placeholder="DD"
-          content={days}
-          onItemPress={onSetDate.bind(this, "day")}
-        />
-        <Dropdown
-          value={date.month}
-          placeholder="MM"
-          style={styles.drop}
-          content={months}
-          onItemPress={onSetDate.bind(this, "month")}
-        />
-        <Dropdown
-          value={date.year}
-          placeholder="YY"
-          style={styles.drop}
-          content={years}
-          onItemPress={onSetDate.bind(this, "year")}
-        />
+        {type.day && (
+          <Dropdown
+            value={date.day}
+            placeholder="DD"
+            content={days}
+            onItemPress={onSetDate.bind(this, "day")}
+          />
+        )}
+        {type.month && (
+          <Dropdown
+            value={date.month}
+            placeholder="MM"
+            style={styles.drop}
+            content={months}
+            onItemPress={onSetDate.bind(this, "month")}
+          />
+        )}
+        {type.year && (
+          <Dropdown
+            value={date.year}
+            placeholder="YY"
+            style={styles.drop}
+            content={years}
+            onItemPress={onSetDate.bind(this, "year")}
+          />
+        )}
       </View>
     </View>
   );

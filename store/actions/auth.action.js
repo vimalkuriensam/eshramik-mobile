@@ -3,6 +3,7 @@ import apiService from "../../authInterceptor/authAxios";
 export const AUTH = {
   LOGIN: "LOGIN",
   SIGNUP: "SIGNUP",
+  SET_TOKEN: "SET_TOKEN",
 };
 
 export const login = () => async (dispatch) => {
@@ -39,13 +40,30 @@ export const otpVerify =
   async (dispatch) => {
     try {
       console.log(otp, mobile);
-      const response = await apiService().post("/auth/verify", {
+      const { status, data } = await apiService().post("/auth/verify", {
         otp,
         mobile: `+91${mobile}`,
         login: false,
       });
-      console.log(response.status, response.data);
+      if (status == 200) {
+        const { accessToken, refreshToken } = data.data;
+        dispatch(
+          setToken({
+            accessToken,
+            refreshToken,
+          })
+        );
+        return true;
+      }
     } catch (e) {
       throw e;
     }
   };
+
+export const setToken = ({ accessToken, refreshToken }) => ({
+  type: AUTH.SET_TOKEN,
+  payload: {
+    accessToken,
+    refreshToken,
+  },
+});

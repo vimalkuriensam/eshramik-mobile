@@ -4,16 +4,16 @@ import CheckBox from "@react-native-community/checkbox";
 import { Colors, Shade } from "../../static/Colors";
 
 const DefaultCheckbox = ({ onCheckboxValue, value = undefined, ...rest }) => {
-  const [inlineValue, setInlineValue] = useState(!!value);
+  // const [inlineValue, setInlineValue] = useState(!!value);
   const toggleCheckBox = () => {
-      setInlineValue(!value);
+      // setInlineValue(!value);
       onCheckboxValue(!value);
   };
   
   return (
     <CheckBox
       tintColors={{ true: Shade.secondary, false: Colors.greyMedium }}
-      value={inlineValue}
+      value={value}
       onValueChange={toggleCheckBox}
       {...rest}
     />

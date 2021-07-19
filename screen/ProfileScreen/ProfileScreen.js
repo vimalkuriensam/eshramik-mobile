@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import Documents from "./container/Documents";
@@ -13,8 +13,10 @@ import Skill from "./container/Skill";
 import { Shade } from "../../static/Colors";
 import Stepper from "./container/Stepper";
 import { PROFILE_TAB_INFO } from "./data";
+import { connect } from "react-redux";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation, auth }) => {
+  console.log(auth);
   const [tabInfo, setTabInfo] = useState({
     position: null,
     title: null,
@@ -36,7 +38,7 @@ const ProfileScreen = ({ navigation }) => {
   }, [navigation.state.routeName]);
 
   const onHandleStepperPress = (index) => {
-    const route = PROFILE_TAB_INFO[tabInfo.position + index -1].name;
+    const route = PROFILE_TAB_INFO[tabInfo.position + index - 1].name;
     navigation.navigate(route);
   };
 
@@ -67,7 +69,7 @@ const ProfileScreen = ({ navigation }) => {
   );
 
   return (
-    <View>
+    <View style={styles.profileContainer}>
       <StatusBar
         currentHeight={"44"}
         backgroundColor={Shade.primary}
@@ -84,4 +86,15 @@ const ProfileScreen = ({ navigation }) => {
   );
 };
 
-export default ProfileScreen;
+const styles = StyleSheet.create({
+  profileContainer: {
+    backgroundColor: Shade.white,
+    flex: 1,
+  },
+});
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(ProfileScreen);

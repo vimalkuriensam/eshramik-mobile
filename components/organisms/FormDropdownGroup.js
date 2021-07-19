@@ -8,7 +8,7 @@ const FormDropdownGroup = ({ title, onItemPress, ...rest }) => {
   return (
     <View style={styles.container}>
       <DefaultText variant="pr1-1">{title}</DefaultText>
-      <Dropdown onItemPress {...rest} />
+      <Dropdown onItemPress={onItemPress} {...rest} />
     </View>
   );
 };

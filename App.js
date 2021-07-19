@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { enableScreens } from "react-native-screens";
-
-import RootNavigator from "./navigation/RootNavigator";
-import ConfigureStore from "./store/ConfigureStore";
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 
-enableScreens();
+import RootNavigator from "./navigation/RootNavigator";
+import { store, persistor } from "./store/ConfigureStore";
 
-const store = ConfigureStore();
+enableScreens();
 
 const fetchFonts = () =>
   Font.loadAsync({
@@ -37,7 +36,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <RootNavigator />
+      <PersistGate loading={null} persistor={persistor}>
+        <RootNavigator />
+      </PersistGate>
     </Provider>
   );
 };

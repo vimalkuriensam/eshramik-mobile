@@ -8,19 +8,23 @@ const Profession = () => {
     nonTechnical: "",
   });
 
-  const onHandleProfessionProps = () => {}
+  const onHandleProfessionProps = (type, value) =>
+    setProfessionProps((prevState) => ({
+      ...prevState,
+      [type]: value,
+    }));
   return (
-    <ScrollView style={{ paddingHorizontal: 16, marginBottom: 150 }}>
+    <ScrollView style={{ paddingHorizontal: 16 }}>
       <FormDropdownGroup
         title="Technical"
         value={professionProps.technical}
-        onItemPress={onHandleProfessionProps.bind(this, "board")}
+        onItemPress={onHandleProfessionProps.bind(this, "technical")}
         content={["MG", "Kerala"]}
       />
       <FormDropdownGroup
         title="Non Technical"
         value={professionProps.nonTechnical}
-        onItemPress={onHandleProfessionProps.bind(this, "board")}
+        onItemPress={onHandleProfessionProps.bind(this, "nonTechnical")}
         content={["MG", "Kerala"]}
       />
     </ScrollView>

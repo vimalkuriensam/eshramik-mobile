@@ -35,7 +35,7 @@ const Info = () => {
     setInfoProps((prevState) => ({ ...prevState, [type]: value }));
 
   return (
-    <ScrollView style={{ paddingHorizontal: 16, marginBottom: 150 }}>
+    <ScrollView style={{ paddingHorizontal: 16 }}>
       <FormInput
         variant="secondary"
         label="Full Name"

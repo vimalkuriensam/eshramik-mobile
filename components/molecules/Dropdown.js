@@ -106,6 +106,8 @@ const styles = StyleSheet.create({
     backgroundColor: Shade.greyLight1,
     width: "85%",
     borderRadius: 10,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
     overflow: "hidden",
     paddingHorizontal: 15,
     paddingVertical: 10,
