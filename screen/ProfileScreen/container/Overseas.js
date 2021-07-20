@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from "react-native";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import FormRadio from "../../../components/molecules/FormRadio";
 
-const Overseas = () => {
+const Overseas = ({ loader }) => {
   const [overseasProps, setOverseasProps] = useState({
     validPassport: "",
     overseas: "",
@@ -35,8 +35,9 @@ const Overseas = () => {
       <DefaultButton
         title="next"
         variant="primary"
+        loader={loader}
         onButtonPress={() => console.log("pressed")}
-        style={{ marginVertical: 10 }}
+        style={{ marginTop: 30, marginBottom: 15 }}
       />
     </ScrollView>
   );

@@ -1,8 +1,19 @@
 import React, { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView } from "react-native";
+import { connect } from "react-redux";
+import DefaultButton from "../../../components/atoms/DefaultButton";
 import FormDropdownGroup from "../../../components/organisms/FormDropdownGroup";
 
-const Profession = () => {
+const Profession = ({
+  technicalProfession,
+  nonTechnicalProfession,
+  loader,
+}) => {
+  const mappedTechnical = technicalProfession.map((tech) => tech.name);
+  const mappedNonTechnical = nonTechnicalProfession.map(
+    (nonTech) => nonTech.name
+  );
+  console.log("loader", loader);
   const [professionProps, setProfessionProps] = useState({
     technical: "",
     nonTechnical: "",
@@ -19,16 +30,28 @@ const Profession = () => {
         title="Technical"
         value={professionProps.technical}
         onItemPress={onHandleProfessionProps.bind(this, "technical")}
-        content={["MG", "Kerala"]}
+        content={mappedTechnical}
       />
       <FormDropdownGroup
         title="Non Technical"
         value={professionProps.nonTechnical}
         onItemPress={onHandleProfessionProps.bind(this, "nonTechnical")}
-        content={["MG", "Kerala"]}
+        content={mappedNonTechnical}
+      />
+      <DefaultButton
+        title="next"
+        variant="primary"
+        style={{ marginTop: 30, marginBottom: 15 }}
+        loader={loader}
+        onButtonPress={() => console.log("pressed")}
       />
     </ScrollView>
   );
 };
 
-export default Profession;
+const mapStateToProps = (state) => ({
+  technicalProfession: state.profile.technical,
+  nonTechnicalProfession: state.profile.nonTechnical,
+});
+
+export default connect(mapStateToProps)(Profession);

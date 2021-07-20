@@ -5,7 +5,7 @@ import DefaultButton from "../../../components/atoms/DefaultButton";
 import DefaultRadio from "../../../components/atoms/DefaultRadio";
 import BirthdayPicker from "../../../components/organisms/BirthdayPicker";
 
-const Skill = () => {
+const Skill = ({ loader }) => {
   const [skillProps, setSkillProps] = useState({
     skill: "",
     experience: {
@@ -19,14 +19,14 @@ const Skill = () => {
 
   const onHandleExperience = (type, value) => {
     console.log(type, value);
-  }
-    // setSkillProps((prevState) => ({
-    //   ...prevState,
-    //   experience: {
-    //     ...prevState.experience,
-    //     [type]: value,
-    //   },
-    // }));
+  };
+  // setSkillProps((prevState) => ({
+  //   ...prevState,
+  //   experience: {
+  //     ...prevState.experience,
+  //     [type]: value,
+  //   },
+  // }));
 
   return (
     <ScrollView style={{ paddingHorizontal: 16 }}>
@@ -46,6 +46,8 @@ const Skill = () => {
       <DefaultButton
         title="next"
         variant="primary"
+        style={{ marginTop: 30, marginBottom: 15 }}
+        loader={loader}
         onButtonPress={() => console.log("pressed")}
       />
     </ScrollView>

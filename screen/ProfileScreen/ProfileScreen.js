@@ -45,26 +45,26 @@ const ProfileScreen = ({ navigation, dispatch }) => {
     (tabScreen) => {
       switch (tabScreen) {
         case "Info":
-          return <Info />;
+          return <Info loader={loader} />;
         case "Qualification":
-          return <Qualification />;
+          return <Qualification loader={loader} />;
         case "Profession":
-          return <Profession />;
+          return <Profession loader={loader} />;
         case "Skill":
-          return <Skill />;
+          return <Skill loader={loader} />;
         case "EmployeeDetails":
-          return <EmployeeDetails />;
+          return <EmployeeDetails loader={loader} />;
         case "Overseas":
-          return <Overseas />;
+          return <Overseas loader={loader} />;
         case "Documents":
-          return <Documents />;
+          return <Documents loader={loader} />;
         case "Resume":
-          return <Resume />;
+          return <Resume loader={loader} />;
         default:
-          return <Info />;
+          return <Info loader={loader} />;
       }
     },
-    [navigation.state.routeName]
+    [navigation.state.routeName, loader]
   );
 
   return (

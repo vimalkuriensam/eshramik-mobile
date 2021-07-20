@@ -27,17 +27,21 @@ const apiService = () => {
   api.interceptors.response.use(
     (response) => new Promise((resolve, reject) => resolve(response)),
     (error) => {
-      if (!error.response)
-        return new Promise((resolve, reject) => reject(error));
-      if (error.response.status === 401) {
-        console.log("token expired");
-        store.dispatch({ type: "SET_LOGOUT" });
-        NavigationActions.navigate("Auth");
-      } else if (error.response.status === 403) {
-        store.dispatch({ type: "SET_LOGOUT" });
-        NavigationActions.navigate("Auth");
-      }
-      return Promise.reject(error);
+      return new Promise((resolve, reject) => {
+        if (!error.response)
+          return reject(error);
+        if (error.response.status === 401) {
+          console.log("token expired");
+          store.dispatch({ type: "SET_LOGOUT" });
+          NavigationActions.navigate("Auth");
+          // resolve(true);
+        } else if (error.response.status === 403) {
+          store.dispatch({ type: "SET_LOGOUT" });
+          NavigationActions.navigate("Auth");
+          // resolve(true);
+        }
+        return reject(error);
+      });
     }
   );
 

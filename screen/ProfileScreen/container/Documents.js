@@ -8,7 +8,7 @@ import { ScrollView, StyleSheet, Image, Alert } from "react-native";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import { Camera, requestPermissionsAsync } from "expo-camera";
 
-const Documents = () => {
+const Documents = ({ loader }) => {
   const [imageChosen, setImageChosen] = useState(false);
   const [cameraSelected, setCameraSelected] = useState(false);
   const [imageUri, setImageUri] = useState();
@@ -66,6 +66,7 @@ const Documents = () => {
         title="Select Photo"
         style={styles.cameraButton}
         onButtonPress={onSelectImage}
+        loader={loader}
       />
       {imageChosen && (
         <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />

@@ -1,13 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { connect } from "react-redux";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import Dropdown from "../../../components/molecules/Dropdown";
 import FormInput from "../../../components/molecules/FormInput";
 import BirthdayPicker from "../../../components/organisms/BirthdayPicker";
 import FormDropdownGroup from "../../../components/organisms/FormDropdownGroup";
 
-const EmployeeDetails = () => {
+const EmployeeDetails = ({ states, districts, jobs, loader }) => {
+  console.log(states, districts, jobs);
+  const mappedStates = states.map((state) => state.state);
+  const mappedDistricts = districts.map((district) => district.district);
+  const mappedJobs = jobs.map((job) => job.name);
   const [employeeDetProps, setEmployeeDetProps] = useState({
     name: "",
     startDate: "",
@@ -45,22 +50,24 @@ const EmployeeDetails = () => {
         title="Job Title"
         value={employeeDetProps.organization}
         onItemPress={onHandleEmployeeDetProps.bind(this, "title")}
-        content={["MG", "Kerala"]}
+        content={mappedJobs}
       />
       <FormDropdownGroup
         title="Job location"
         placeholder="State"
         value={employeeDetProps.state}
         onItemPress={onHandleEmployeeDetProps.bind(this, "state")}
-        content={["MG", "Kerala"]}
+        content={mappedStates}
       />
-      <Dropdown
-        style={styles.dropDownMargin}
-        onItemPress={onHandleEmployeeDetProps.bind(this, "city")}
-        value={employeeDetProps.city}
-        placeholder="City"
-        content={["MG", "Kerala"]}
-      />
+      {!!districts.length && (
+        <Dropdown
+          style={styles.dropDownMargin}
+          onItemPress={onHandleEmployeeDetProps.bind(this, "city")}
+          value={employeeDetProps.city}
+          placeholder="City"
+          content={mappedDistricts}
+        />
+      )}
       <FormInput
         label="Last drawn salary"
         value={employeeDetProps.salary}
@@ -78,8 +85,9 @@ const EmployeeDetails = () => {
       <DefaultButton
         title="next"
         variant="primary"
+        loader={loader}
         onButtonPress={() => console.log("pressed")}
-        style={{ marginVertical: 10 }}
+        style={{ marginTop: 30, marginBottom: 15 }}
       />
     </ScrollView>
   );
@@ -91,4 +99,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EmployeeDetails;
+const mapStateToProps = (state) => ({
+  states: state.profile.addressState,
+  districts: state.profile.addressDistrict,
+  jobs: [...state.profile.technical, ...state.profile.nonTechnical],
+});
+
+export default connect(mapStateToProps)(EmployeeDetails);
