@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ScrollView, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import DefaultText from "../../../components/atoms/DefaultText";
 import FormCheckbox from "../../../components/molecules/FormCheckbox";
@@ -8,31 +8,69 @@ import FormInput from "../../../components/molecules/FormInput";
 import BirthdayPicker from "../../../components/organisms/BirthdayPicker";
 import FormDropdownGroup from "../../../components/organisms/FormDropdownGroup";
 import { INFO_NAME_VALUES } from "../data";
-import DefaultRadio from "../../../components/atoms/DefaultRadio";
 import FormRadio from "../../../components/molecules/FormRadio";
+import { connect } from "react-redux";
+import {
+  clearDistrict,
+  clearRegion,
+  getDistrict,
+  getRegion,
+} from "../../../store/actions/profile.action";
+import { Shade } from "../../../static/Colors";
 
-const Info = ({ loader }) => {
+const Info = ({ loader, states, districts, regions, dispatch }) => {
+  const mappedStates = states.map((state) => state.state);
+  const mappedDistricts = districts.map((district) => district.district);
+  const mappedRegions = regions.map((region) => region.post_office);
   const [infoProps, setInfoProps] = useState({
     fullName: "",
     dob: "",
-    houseNumber: "",
-    streetLocality: "",
-    pincode: "",
-    state: "",
-    city: "",
-    district: "",
-    sameAsAddress: undefined,
-    perm_houseNumber: "",
-    perm_streetLocality: "",
-    perm_pincode: "",
-    perm_state: "",
-    perm_city: "",
-    perm_district: "",
+    gender: "",
+    maritalStatus: "",
+    address: {
+      houseNo: "",
+      street: "",
+      state: "",
+      district: "",
+      region: "",
+      pin: "",
+    },
+    sameAsAddress: false,
+    permenantAddress: {
+      houseNo: "",
+      street: "",
+      state: "",
+      district: "",
+      region: "",
+      pin: "",
+    },
     email: "",
   });
 
+  const [locationLoader, setLocationLoader] = useState({
+    state: false,
+    district: false,
+  });
+
+  useEffect(() => {
+    dispatch(clearDistrict());
+    dispatch(clearRegion());
+  }, []);
+
   const onHandleInfoProps = (type) => (value) =>
     setInfoProps((prevState) => ({ ...prevState, [type]: value }));
+
+  const onHandleAddress = (type1, type2, value) => {
+    setInfoProps((prevState) => ({
+      ...prevState,
+      [type1]: {
+        ...prevState[type1],
+        [type2]: value,
+      },
+    }));
+  };
+
+  const onHandleSubmit = () => console.log(infoProps);
 
   return (
     <View style={{ flex: 1 }}>
@@ -41,19 +79,21 @@ const Info = ({ loader }) => {
           variant="secondary"
           label="Full Name"
           value={infoProps.fullname}
-          onInputChange={onHandleInfoProps("fullname")}
+          onInputChange={onHandleInfoProps("fullName")}
         />
         <FormRadio
           variant="secondary"
           label="Gender"
+          value={infoProps.gender}
           contents={["Male", "Female", "Others"]}
-          onHandleCheckbox={(val) => console.log(val)}
+          onHandleCheckbox={onHandleInfoProps("gender")}
         />
         <FormRadio
           variant="secondary"
+          value={infoProps.maritalStatus}
           label="Marital Status"
           contents={["Married", "Unmarried"]}
-          onHandleCheckbox={(val) => console.log(val)}
+          onHandleCheckbox={onHandleInfoProps("maritalStatus")}
         />
         <BirthdayPicker
           title="Date of Birthday"
@@ -62,39 +102,72 @@ const Info = ({ loader }) => {
         <FormInput
           variant="secondary"
           label="House Number"
-          value={infoProps.houseNumber}
-          onInputChange={onHandleInfoProps("houseNumber")}
+          value={infoProps.address.houseNo}
+          onInputChange={onHandleAddress.bind(this, "address", "houseNo")}
         />
         <FormInput
           variant="secondary"
           label="Street Locality"
-          value={infoProps.streetLocality}
-          onInputChange={onHandleInfoProps("streetLocality")}
+          value={infoProps.address.street}
+          onInputChange={onHandleAddress.bind(this, "address", "street")}
         />
         <FormInput
           variant="secondary"
           label="Pincode"
-          value={infoProps.pincode}
-          onInputChange={onHandleInfoProps("pincode")}
+          value={infoProps.address.pin}
+          onInputChange={onHandleAddress.bind(this, "address", "pin")}
         />
         <FormDropdownGroup
           title="State"
-          value={infoProps.state}
-          onItemPress={onHandleInfoProps("state")}
-          content={["Kerala", "TamilNadu"]}
+          value={infoProps.address.state}
+          onItemPress={(value) => {
+            setLocationLoader((prevState) => ({ ...prevState, state: true }));
+            dispatch(getDistrict({ state: value })).then(() => {
+              onHandleAddress("address", "state", value);
+              setLocationLoader((prevState) => ({
+                ...prevState,
+                state: false,
+              }));
+            });
+          }}
+          content={mappedStates}
         />
-        <FormDropdownGroup
-          title="City"
-          value={infoProps.city}
-          onItemPress={onHandleInfoProps("city")}
-          content={["Kottayam", "Trivandrum"]}
-        />
-        <FormDropdownGroup
-          title="District"
-          value={infoProps.district}
-          onItemPress={onHandleInfoProps("district")}
-          content={["Kottayam", "ABC"]}
-        />
+        {locationLoader.state && (
+          <ActivityIndicator color={Shade.secondary} size="large" />
+        )}
+
+        {mappedDistricts.length > 0 && (
+          <FormDropdownGroup
+            title="District"
+            value={infoProps.address.district}
+            onItemPress={(value) => {
+              setLocationLoader((prevState) => ({
+                ...prevState,
+                district: true,
+              }));
+              dispatch(getRegion({ district: value })).then(() => {
+                onHandleAddress("address", "district", value);
+                setLocationLoader((prevState) => ({
+                  ...prevState,
+                  district: false,
+                }));
+              });
+            }}
+            content={mappedDistricts}
+          />
+        )}
+
+        {locationLoader.district && (
+          <ActivityIndicator color={Shade.secondary} size="large" />
+        )}
+        {!!mappedRegions.length && (
+          <FormDropdownGroup
+            title="Region"
+            value={infoProps.address.region}
+            onItemPress={onHandleAddress.bind(this, "address", "region")}
+            content={mappedRegions}
+          />
+        )}
         <FormCheckbox
           variant="2"
           value={infoProps.sameAsAddress}
@@ -108,39 +181,107 @@ const Info = ({ loader }) => {
         <FormInput
           variant="secondary"
           label="House Number"
-          value={infoProps.perm_houseNumber}
-          onInputChange={onHandleInfoProps("perm_houseNumber")}
+          value={
+            infoProps.sameAsAddress
+              ? infoProps.address.houseNo
+              : infoProps.permenantAddress.houseNo
+          }
+          onInputChange={onHandleAddress.bind(
+            this,
+            "permanantAddress",
+            "houseNo"
+          )}
         />
         <FormInput
           variant="secondary"
           label="Street Locality"
-          value={infoProps.perm_streetLocality}
-          onInputChange={onHandleInfoProps("perm_streetLocality")}
+          value={
+            infoProps.sameAsAddress
+              ? infoProps.address.street
+              : infoProps.permenantAddress.street
+          }
+          onInputChange={onHandleAddress.bind(
+            this,
+            "permanantAddress",
+            "street"
+          )}
         />
         <FormInput
           variant="secondary"
           label="Pincode"
-          value={infoProps.perm_pincode}
-          onInputChange={onHandleInfoProps("perm_pincode")}
+          value={
+            infoProps.sameAsAddress
+              ? infoProps.address.pin
+              : infoProps.permenantAddress.pin
+          }
+          onInputChange={onHandleAddress.bind(this, "permanantAddress", "pin")}
         />
+
         <FormDropdownGroup
           title="State"
-          value={infoProps.perm_state}
-          onItemPress={onHandleInfoProps("perm_state")}
-          content={["Kerala", "TamilNadu"]}
+          value={
+            infoProps.sameAsAddress
+              ? infoProps.address.state
+              : infoProps.permenantAddress.state
+          }
+          onItemPress={(value) => {
+            setLocationLoader((prevState) => ({ ...prevState, state: true }));
+            dispatch(getDistrict({ state: value })).then(() => {
+              onHandleAddress("permenantAddress", "state", value);
+              setLocationLoader((prevState) => ({
+                ...prevState,
+                state: false,
+              }));
+            });
+          }}
+          content={mappedStates}
         />
-        <FormDropdownGroup
-          title="City"
-          value={infoProps.perm_city}
-          onItemPress={onHandleInfoProps("perm_city")}
-          content={["Kottayam", "Trivandrum"]}
-        />
-        <FormDropdownGroup
-          title="District"
-          value={infoProps.perm_district}
-          onItemPress={onHandleInfoProps("perm_district")}
-          content={["Kottayam", "ABC"]}
-        />
+        {locationLoader.state && (
+          <ActivityIndicator color={Shade.secondary} size="large" />
+        )}
+        {!!mappedDistricts.length && (
+          <FormDropdownGroup
+            title="District"
+            value={
+              infoProps.sameAsAddress
+                ? infoProps.address.district
+                : infoProps.permenantAddress.district
+            }
+            onItemPress={(value) => {
+              setLocationLoader((prevState) => ({
+                ...prevState,
+                district: true,
+              }));
+              dispatch(getRegion({ district: value })).then(() => {
+                onHandleAddress("permenantAddress", "district", value);
+                setLocationLoader((prevState) => ({
+                  ...prevState,
+                  district: false,
+                }));
+              });
+            }}
+            content={mappedDistricts}
+          />
+        )}
+        {locationLoader.district && (
+          <ActivityIndicator color={Shade.secondary} size="large" />
+        )}
+        {!!mappedRegions.length && (
+          <FormDropdownGroup
+            title="Region"
+            value={
+              infoProps.sameAsAddress
+                ? infoProps.address.region
+                : infoProps.permenantAddress.region
+            }
+            onItemPress={onHandleAddress.bind(
+              this,
+              "permenantAddress",
+              "region"
+            )}
+            content={mappedRegions}
+          />
+        )}
         <FormInput
           variant="secondary"
           label="Email"
@@ -152,11 +293,17 @@ const Info = ({ loader }) => {
           variant="primary"
           loader={loader}
           style={{ marginTop: 30, marginBottom: 15 }}
-          onButtonPress={() => console.log("pressed")}
+          onButtonPress={onHandleSubmit}
         />
       </ScrollView>
     </View>
   );
 };
 
-export default Info;
+const mapStateToProps = (state) => ({
+  states: state.profile.addressState,
+  districts: state.profile.addressDistrict,
+  regions: state.profile.addressRegion,
+});
+
+export default connect(mapStateToProps)(Info);

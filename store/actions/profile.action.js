@@ -4,6 +4,9 @@ export const SET_ADDRESS_STATE = "SET_ADDRESS_STATE";
 export const SET_ADDRESS_DISTRICT = "SET_ADDRESS_DISTRICT";
 export const SET_ADDRESS_REGION = "SET_ADDRESS_REGION";
 
+export const CLEAR_ADDRESS_DISTRICT = "CLEAR_ADDRESS_DISTRICT";
+export const CLEAR_ADDRESS_REGION = "CLEAR_ADDRESS_REGION";
+
 export const SET_PERMANENT_STATE = "SET_PERMANENT_STATE";
 export const SET_PERMANENT_DISTRICT = "SET_PERMANENT_DISTRICT";
 export const SET_PERMANENT_REGION = "SET_PERMANENT_REGION";
@@ -85,6 +88,7 @@ export const getRegion =
       const { status, data } = await apiService().get(
         `profile/get_city/${district}`
       );
+      console.log(data, status);
       if (status == 200) dispatch(setAddressRegion({ region: data.data }));
     } catch (e) {
       throw e;
@@ -177,3 +181,11 @@ export const getColleges = () => async (dispatch) => {
     throw e;
   }
 };
+
+export const clearDistrict = () => ({
+  type: CLEAR_ADDRESS_DISTRICT,
+});
+
+export const clearRegion = () => ({
+  type: CLEAR_ADDRESS_REGION,
+});

@@ -1,4 +1,6 @@
 import {
+  CLEAR_ADDRESS_DISTRICT,
+  CLEAR_ADDRESS_REGION,
   SET_ADDRESS_DISTRICT,
   SET_ADDRESS_REGION,
   SET_ADDRESS_STATE,
@@ -58,6 +60,10 @@ const profileReducer = (
       return { ...state, technical };
     case SET_NON_TECHNICAL_COURSE:
       return { ...state, nonTechnical };
+    case CLEAR_ADDRESS_DISTRICT:
+      return { ...state, addressDistrict: [] };
+    case CLEAR_ADDRESS_REGION:
+      return { ...state, addressRegion: [] };
     default:
       return state;
   }
