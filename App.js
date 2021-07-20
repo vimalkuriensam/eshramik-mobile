@@ -5,12 +5,12 @@ import { enableScreens } from "react-native-screens";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 
-import RootNavigator from "./navigation/RootNavigator";
 import { store, persistor } from "./store/ConfigureStore";
 import NavigationContainer from "./navigation/NavigationContainer";
+import { injectStore } from "./authInterceptor/authAxios";
 
 enableScreens();
-
+injectStore(store);
 const fetchFonts = () =>
   Font.loadAsync({
     "montserrat-bold": require("./assets/fonts/Montserrat-Bold.otf"),

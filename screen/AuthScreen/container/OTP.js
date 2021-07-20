@@ -48,6 +48,7 @@ const OTP = ({ navigation, dispatch }) => {
   const refCallback = (textInputRef) => (node) => (textInputRef.current = node);
 
   const mobile = navigation.getParam("mobile");
+  const isLogin = navigation.getParam("isLogin");
 
   const onHandleOTP =
     (index) =>
@@ -88,6 +89,7 @@ const OTP = ({ navigation, dispatch }) => {
         otpVerify({
           otp: otpArray.join(""),
           mobile,
+          login: isLogin ? true : false,
         })
       )
         .then(() => {
@@ -194,7 +196,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
-
 
 export default connect()(OTP);

@@ -1,3 +1,12 @@
+import {
+  getColleges,
+  getDegrees,
+  getInstitutions,
+  getNonTechnicalCourses,
+  getState,
+  getTechnicalCourses,
+} from "../../../store/actions/profile.action";
+
 export const INFO_NAME_VALUES = [
   {
     variant: "secondary",
@@ -60,12 +69,37 @@ export const PROFILE_TAB_INFO = [
 ];
 
 export const funcMap = {
-  1: () => {},
-  2: () => {},
-  3: () => {},
-  4: () => {},
-  5: () => {},
-  6: () => {},
-  7: () => {},
-  8: () => {},
+  0: async (dispatch) => {
+    await dispatch(getState());
+    return true;
+  },
+  1: async (dispatch) => {
+    await dispatch(getColleges());
+    await dispatch(getDegrees());
+    await dispatch(getInstitutions());
+    return true;
+  },
+  2: async (dispatch) => {
+    await dispatch(getTechnicalCourses());
+    await dispatch(getNonTechnicalCourses());
+    return true;
+  },
+  3: async (dispatch) => {
+    return true;
+  },
+  4: async (dispatch) => {
+    await dispatch(getTechnicalCourses());
+    await dispatch(getNonTechnicalCourses());
+    await dispatch(getState());
+    return true;
+  },
+  5: async (dispatch) => {
+    return true;
+  },
+  6: async (dispatch) => {
+    return true;
+  },
+  7: async (dispatch) => {
+    return true;
+  },
 };

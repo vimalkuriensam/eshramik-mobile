@@ -12,13 +12,16 @@ import Resume from "./container/Resume";
 import Skill from "./container/Skill";
 import { Shade } from "../../static/Colors";
 import Stepper from "./container/Stepper";
-import { PROFILE_TAB_INFO } from "./data";
+import { funcMap, PROFILE_TAB_INFO } from "./data";
+import { connect } from "react-redux";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation, dispatch }) => {
   const [tabInfo, setTabInfo] = useState({
     position: null,
     title: null,
   });
+
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const match = PROFILE_TAB_INFO.find(
@@ -27,9 +30,15 @@ const ProfileScreen = ({ navigation }) => {
     setTabInfo({ position: match.id, title: match.title });
   }, [navigation.state.routeName]);
 
-  const onHandleStepperPress = (index) => {
-    const route = PROFILE_TAB_INFO[tabInfo.position + index - 1].name;
-    navigation.navigate(route);
+  const onHandleStepperPress = async (index) => {
+    setLoader(true);
+    const position = index == 1 ? tabInfo.position : tabInfo.position + index;
+    const response = await funcMap[position](dispatch);
+    if (response) {
+      const route = PROFILE_TAB_INFO[tabInfo.position + index - 1].name;
+      navigation.navigate(route);
+    }
+    setLoader(false);
   };
 
   const getTabScreen = useCallback(
@@ -69,6 +78,7 @@ const ProfileScreen = ({ navigation }) => {
         step={tabInfo.position}
         total={PROFILE_TAB_INFO.length}
         title={tabInfo.title}
+        loader={loader}
         onHandleStepperPress={onHandleStepperPress}
       />
       {getTabScreen(navigation.state.routeName)}
@@ -83,5 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default ProfileScreen;
+export default connect()(ProfileScreen);

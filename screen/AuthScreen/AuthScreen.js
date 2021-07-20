@@ -13,7 +13,8 @@ const AuthScreen = ({ navigation }) => {
     });
   };
 
-  if (state === "Login") return <Login onSignupRoute={onSignupRoute} />;
+  if (state === "Login")
+    return <Login navigation={navigation} onSignupRoute={onSignupRoute} />;
   else if (state === "Signup") return <Signup navigation={navigation} />;
   return <OTP navigation={navigation} />;
 };

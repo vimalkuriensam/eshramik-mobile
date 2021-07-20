@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Shade } from "../../../static/Colors";
 import BodyTitle from "../../../components/atoms/BodyTitle";
@@ -9,6 +15,7 @@ const Stepper = ({
   step = 1,
   total,
   title = "default",
+  loader = false,
   onHandleStepperPress,
 }) => {
   return (
@@ -23,14 +30,32 @@ const Stepper = ({
         )}
         <View style={styles.info}>
           <View style={styles.value}>
-            <Text style={styles.number}>{step}</Text>
+            {loader ? (
+              <ActivityIndicator color={Shade.white} size="large" />
+            ) : (
+              <Text style={styles.number}>{step}</Text>
+            )}
           </View>
-          <DefaultText style={styles.steps} variant="pl3-2">
-            {step} of {total}
-          </DefaultText>
-          <BodyTitle style={styles.title} variant="primaryDark">
-            {title}
-          </BodyTitle>
+
+          {loader ? (
+            <DefaultText style={styles.steps} variant="pl3-2">
+              Loading . . .
+            </DefaultText>
+          ) : (
+            <DefaultText style={styles.steps} variant="pl3-2">
+              {step} of {total}
+            </DefaultText>
+          )}
+
+          {loader ? (
+            <BodyTitle style={styles.title} variant="primaryDark">
+              .....
+            </BodyTitle>
+          ) : (
+            <BodyTitle style={styles.title} variant="primaryDark">
+              {title}
+            </BodyTitle>
+          )}
         </View>
         {step < total ? (
           <TouchableOpacity onPress={onHandleStepperPress.bind(this, 1)}>

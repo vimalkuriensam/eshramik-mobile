@@ -1,5 +1,12 @@
 import Axios from "axios";
+import { NavigationActions } from "react-navigation";
 import { BASE_URL } from "../static";
+
+let store;
+
+export const injectStore = (_store) => {
+  store = _store;
+};
 
 const apiService = () => {
   const api = Axios.create({
@@ -8,7 +15,7 @@ const apiService = () => {
 
   api.interceptors.request.use(async (config) => {
     try {
-      const token = ""; //store.getState().user?.token;
+      const token = store.getState().auth?.accessToken;
       if (token) config.headers["Authorization"] = `Bearer ${token}`;
       config.headers["Content-Type"] = "application/json";
     } catch (e) {
@@ -24,9 +31,13 @@ const apiService = () => {
         return new Promise((resolve, reject) => reject(error));
       if (error.response.status === 401) {
         console.log("token expired");
-      } else {
-        return Promise.reject(error);
+        store.dispatch({ type: "SET_LOGOUT" });
+        NavigationActions.navigate("Auth");
+      } else if (error.response.status === 403) {
+        store.dispatch({ type: "SET_LOGOUT" });
+        NavigationActions.navigate("Auth");
       }
+      return Promise.reject(error);
     }
   );
 
