@@ -10,6 +10,7 @@ const Qualification = ({
   degrees = [],
   institutions = [],
   loader,
+  onHandleSubmit
 }) => {
   const mappedColleges = colleges.map((college) => college.name);
   const mappedDegrees = degrees.map((degree) => degree.name);
@@ -30,6 +31,7 @@ const Qualification = ({
       ...prevState,
       [type]: value,
     }));
+
 
   return (
     <ScrollView style={{ paddingHorizontal: 16 }}>
@@ -92,7 +94,7 @@ const Qualification = ({
         variant="primary"
         style={{ marginTop: 30, marginBottom: 15 }}
         loader={loader}
-        onButtonPress={() => console.log("pressed")}
+        onButtonPress={onHandleSubmit.bind(this, qualificationProps)}
       />
     </ScrollView>
   );

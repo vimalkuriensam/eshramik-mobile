@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import BodyTitle from "../../../components/atoms/BodyTitle";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import DefaultRadio from "../../../components/atoms/DefaultRadio";
+import DefaultText from "../../../components/atoms/DefaultText";
 import BirthdayPicker from "../../../components/organisms/BirthdayPicker";
 
-const Skill = ({ loader }) => {
+const Skill = ({ loader, onHandleSubmit }) => {
   const [skillProps, setSkillProps] = useState({
     skill: "",
     experience: {
-      year: "",
-      month: "",
+      year: 0,
+      month: 0,
     },
   });
 
@@ -18,15 +19,8 @@ const Skill = ({ loader }) => {
     setSkillProps((prevState) => ({ ...prevState, skill: value }));
 
   const onHandleExperience = (type, value) => {
-    console.log(type, value);
+    setSkillProps((prevState) => ({ ...prevState, experience: value }));
   };
-  // setSkillProps((prevState) => ({
-  //   ...prevState,
-  //   experience: {
-  //     ...prevState.experience,
-  //     [type]: value,
-  //   },
-  // }));
 
   return (
     <ScrollView style={{ paddingHorizontal: 16 }}>
@@ -43,15 +37,31 @@ const Skill = ({ loader }) => {
         onHandleBirthday={onHandleExperience.bind(this, "year")}
         type={{ year: true, month: true, day: false }}
       />
+      {(!!skillProps.experience.year || !!skillProps.experience.month) && (
+        <View style={styles.experience}>
+          <DefaultText variant="pl2">
+            {`${
+              skillProps.experience.year ? skillProps.experience.year : 0
+            } years ${skillProps.experience.month ? skillProps.experience.month: 0} months`}
+          </DefaultText>
+        </View>
+      )}
       <DefaultButton
         title="next"
         variant="primary"
         style={{ marginTop: 30, marginBottom: 15 }}
         loader={loader}
-        onButtonPress={() => console.log("pressed")}
+        onButtonPress={onHandleSubmit.bind(this, skillProps)}
       />
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  experience: {
+    alignItems: "center",
+    marginTop: 25,
+  },
+});
 
 export default Skill;

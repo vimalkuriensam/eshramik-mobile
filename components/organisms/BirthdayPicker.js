@@ -15,7 +15,10 @@ const BirthdayPicker = ({
   const getYears = () => {
     let yearList = [];
     const yearNow = moment().format("YYYY");
-    for (let i = +yearNow; i > +yearNow - 120; i--) yearList = [...yearList, i];
+    if (type.day)
+      for (let i = +yearNow; i > +yearNow - 120; i--)
+        yearList = [...yearList, i];
+    else for (let i = 1; i < 31; i++) yearList = [...yearList, i];
     return [...yearList];
   };
   const days = [...Array(32).keys()].splice(1);
@@ -28,24 +31,28 @@ const BirthdayPicker = ({
     year: "",
   });
 
-  const onSetDate = (type, value) => {
+  const onSetDate = (type1, value) => {
     setDate((prevState) => {
       const dateSet = {
         ...prevState,
-        [type]:
+        [type1]:
           value.toString().length == 1
             ? `0${value}`.toString()
             : value.toString(),
       };
-      const isComplete = Object.values(dateSet).every((val) => !!val);
-      if (isComplete) {
-        onHandleBirthday(
-          moment(
-            `${dateSet.day}-${dateSet.month}-${dateSet.year}`,
-            "DD-MM-YYYY"
-          ).format("YYYY-MM-DD")
-        );
-      }
+      if (type.day) {
+        const isComplete = Object.values(dateSet).every((val) => !!val);
+        if (isComplete) {
+          onHandleBirthday(
+            moment(
+              `${dateSet.day}-${dateSet.month}-${dateSet.year}`,
+              "DD-MM-YYYY"
+            ).format("YYYY-MM-DD")
+          );
+        }
+      } else
+        onHandleBirthday({month: dateSet.month, year: dateSet.year});
+
       return dateSet;
     });
   };

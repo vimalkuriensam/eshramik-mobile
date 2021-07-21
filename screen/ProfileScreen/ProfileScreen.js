@@ -14,6 +14,7 @@ import { Shade } from "../../static/Colors";
 import Stepper from "./container/Stepper";
 import { funcMap, PROFILE_TAB_INFO } from "./data";
 import { connect } from "react-redux";
+import { createProfile } from "../../store/actions/profile.action";
 
 const ProfileScreen = ({ navigation, dispatch }) => {
   const [tabInfo, setTabInfo] = useState({
@@ -41,27 +42,43 @@ const ProfileScreen = ({ navigation, dispatch }) => {
     setLoader(false);
   };
 
+  const onHandleSubmit = (value) => {
+    setLoader(true)
+    const match = PROFILE_TAB_INFO.find(
+      (info) => info.name === navigation.state.routeName
+    );   
+    dispatch(createProfile(value, match.id)).then(()=>{
+      const route = PROFILE_TAB_INFO[match.id].name;
+      setLoader(false);
+      navigation.navigate(route);
+    })
+  };
+
   const getTabScreen = useCallback(
     (tabScreen) => {
       switch (tabScreen) {
         case "Info":
-          return <Info loader={loader} />;
+          return <Info loader={loader} onHandleSubmit={onHandleSubmit} />;
         case "Qualification":
-          return <Qualification loader={loader} />;
+          return (
+            <Qualification loader={loader} onHandleSubmit={onHandleSubmit} />
+          );
         case "Profession":
-          return <Profession loader={loader} />;
+          return <Profession loader={loader} onHandleSubmit={onHandleSubmit} />;
         case "Skill":
-          return <Skill loader={loader} />;
+          return <Skill loader={loader} onHandleSubmit={onHandleSubmit} />;
         case "EmployeeDetails":
-          return <EmployeeDetails loader={loader} />;
+          return (
+            <EmployeeDetails loader={loader} onHandleSubmit={onHandleSubmit} />
+          );
         case "Overseas":
-          return <Overseas loader={loader} />;
+          return <Overseas loader={loader} onHandleSubmit={onHandleSubmit} />;
         case "Documents":
-          return <Documents loader={loader} />;
+          return <Documents loader={loader} onHandleSubmit={onHandleSubmit} />;
         case "Resume":
-          return <Resume loader={loader} />;
+          return <Resume loader={loader} onHandleSubmit={onHandleSubmit} />;
         default:
-          return <Info loader={loader} />;
+          return <Info loader={loader} onHandleSubmit={onHandleSubmit} />;
       }
     },
     [navigation.state.routeName, loader]

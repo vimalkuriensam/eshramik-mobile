@@ -8,12 +8,12 @@ const Profession = ({
   technicalProfession,
   nonTechnicalProfession,
   loader,
+  onHandleSubmit
 }) => {
   const mappedTechnical = technicalProfession.map((tech) => tech.name);
   const mappedNonTechnical = nonTechnicalProfession.map(
     (nonTech) => nonTech.name
   );
-  console.log("loader", loader);
   const [professionProps, setProfessionProps] = useState({
     technical: "",
     nonTechnical: "",
@@ -24,6 +24,7 @@ const Profession = ({
       ...prevState,
       [type]: value,
     }));
+
   return (
     <ScrollView style={{ paddingHorizontal: 16 }}>
       <FormDropdownGroup
@@ -43,7 +44,7 @@ const Profession = ({
         variant="primary"
         style={{ marginTop: 30, marginBottom: 15 }}
         loader={loader}
-        onButtonPress={() => console.log("pressed")}
+        onButtonPress={onHandleSubmit.bind(this, professionProps)}
       />
     </ScrollView>
   );

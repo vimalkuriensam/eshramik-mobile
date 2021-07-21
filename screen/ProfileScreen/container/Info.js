@@ -18,7 +18,7 @@ import {
 } from "../../../store/actions/profile.action";
 import { Shade } from "../../../static/Colors";
 
-const Info = ({ loader, states, districts, regions, dispatch }) => {
+const Info = ({ loader, states, districts, regions, dispatch, onHandleSubmit }) => {
   const mappedStates = states.map((state) => state.state);
   const mappedDistricts = districts.map((district) => district.district);
   const mappedRegions = regions.map((region) => region.post_office);
@@ -70,8 +70,6 @@ const Info = ({ loader, states, districts, regions, dispatch }) => {
     }));
   };
 
-  const onHandleSubmit = () => console.log(infoProps);
-
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ paddingHorizontal: 16 }}>
@@ -98,6 +96,7 @@ const Info = ({ loader, states, districts, regions, dispatch }) => {
         <BirthdayPicker
           title="Date of Birthday"
           onHandleBirthday={onHandleInfoProps("dob")}
+          type = {{ year: true, month: true, day: true }}
         />
         <FormInput
           variant="secondary"
@@ -293,7 +292,7 @@ const Info = ({ loader, states, districts, regions, dispatch }) => {
           variant="primary"
           loader={loader}
           style={{ marginTop: 30, marginBottom: 15 }}
-          onButtonPress={onHandleSubmit}
+          onButtonPress={onHandleSubmit.bind(this, infoProps)}
         />
       </ScrollView>
     </View>

@@ -1,4 +1,5 @@
 import apiService from "../../authInterceptor/authAxios";
+import { funcMap } from "../../screen/ProfileScreen/data";
 
 export const SET_ADDRESS_STATE = "SET_ADDRESS_STATE";
 export const SET_ADDRESS_DISTRICT = "SET_ADDRESS_DISTRICT";
@@ -20,8 +21,9 @@ export const SET_NON_TECHNICAL_COURSE = "SET_NON_TECHNICAL_COURSE";
 export const createProfile = (info, step) => async (dispatch) => {
   try {
     if (step == 1 && info.sameAsAddress) delete info.permanentAddress;
-    const { status } = await apiService().post(`/profile/create/${step}`, info);
+    const { status, data } = await apiService().post(`/profile/create/${step}`, info);
     if (status == 200) {
+      console.log(data.data);
       const response = await funcMap[step](dispatch);
       if (response) return true; //history.push(`/register/profile/${+step + 1}`);
     }
