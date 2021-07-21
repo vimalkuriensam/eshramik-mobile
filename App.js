@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./store/ConfigureStore";
 import NavigationContainer from "./navigation/NavigationContainer";
 import { injectStore } from "./authInterceptor/authAxios";
+import RootNavigator from "./navigation/RootNavigator";
 
 enableScreens();
 injectStore(store);

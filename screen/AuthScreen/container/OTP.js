@@ -15,6 +15,7 @@ import DefaultInput from "../../../components/atoms/DefaultInput";
 import DefaultText from "../../../components/atoms/DefaultText";
 import { Shade } from "../../../static/Colors";
 import { otpVerify } from "../../../store/actions/auth.action";
+import { getState } from "../../../store/actions/profile.action";
 import { OTP_AUTO_SUBMIT_TIME } from "../data";
 
 let autoSubmitOtpInterval;
@@ -92,7 +93,8 @@ const OTP = ({ navigation, dispatch }) => {
           login: isLogin ? true : false,
         })
       )
-        .then(() => {
+        .then(async () => {
+          await dispatch(getState())
           setLoader(false);
           navigation.navigate("Profile");
         })
