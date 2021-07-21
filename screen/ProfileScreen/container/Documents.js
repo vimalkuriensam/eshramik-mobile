@@ -17,7 +17,7 @@ import DefaultButton from "../../../components/atoms/DefaultButton";
 import { Camera, requestPermissionsAsync } from "expo-camera";
 import { Shade } from "../../../static/Colors";
 
-const Documents = ({ loader }) => {
+const Documents = ({ loader, onHandleSubmit }) => {
   const [imageChosen, setImageChosen] = useState(false);
   const [cameraSelected, setCameraSelected] = useState(false);
   const [imageUri, setImageUri] = useState();
