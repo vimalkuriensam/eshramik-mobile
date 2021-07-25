@@ -1,5 +1,7 @@
 import React from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import CustomButton from "../../../../components/molecules/CustomButton";
 import { Shade } from "../../../../static/Colors";
 
 const Account = () => {
@@ -14,6 +16,14 @@ const Account = () => {
     </View>
   );
 };
+
+export const accountScreenOptions = ({ navigation }) => ({
+  headerRight: () => (
+    <HeaderButtons HeaderButtonComponent={CustomButton}>
+      <Item title="Cart" iconName="md-menu" />
+    </HeaderButtons>
+  ),
+});
 
 const styles = StyleSheet.create({
   center: {

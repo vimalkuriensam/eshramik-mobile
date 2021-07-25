@@ -27,7 +27,7 @@ const JobsNavigator = () => (
     />
     <Screen
       name="Account"
-      component={AccountNavigator}
+      component={SearchNavigator}
       options={{
         tabBarIcon: ({ focused }) => (
           <View style={{ ...styles.icons, opacity: focused ? 1 : 0.5 }}>
@@ -51,7 +51,7 @@ const JobsNavigator = () => (
     />
     <Screen
       name="Search"
-      component={SearchNavigator}
+      component={AccountNavigator}
       options={{
         tabBarIcon: ({ focused }) => (
           <View style={{ ...styles.icons, opacity: focused ? 1 : 0.5 }}>

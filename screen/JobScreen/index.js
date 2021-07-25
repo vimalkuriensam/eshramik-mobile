@@ -1,1 +1,10 @@
-export { Home, Account, Saved, Search } from "./childScreen";
+export {
+  Home,
+  homeScreenOptions,
+  Account,
+  accountScreenOptions,
+  Saved,
+  savedScreenOptions,
+  Search,
+  searchScreenOptions,
+} from "./childScreen";

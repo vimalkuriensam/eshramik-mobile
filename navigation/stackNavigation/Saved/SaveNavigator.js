@@ -1,20 +1,24 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { Saved as SavedScreen } from "../../../screen";
+import { Saved as SavedScreen, savedScreenOptions } from "../../../screen";
 
 const SaveNav = createStackNavigator();
 
 const SaveNavigator = () => {
   return (
     <SaveNav.Navigator screenOptions={SaveNavDefaultOptions}>
-      <SaveNav.Screen name="SaveStack" component={SavedScreen} />
+      <SaveNav.Screen
+        options={savedScreenOptions}
+        name="SaveStack"
+        component={SavedScreen}
+      />
     </SaveNav.Navigator>
   );
 };
 
 const SaveNavDefaultOptions = {
-  headerTitle: "Search Jobs",
+  headerTitle: "Saved Jobs",
   headerStyle: {
     backgroundColor: "#FFE1A1",
     height: 40,

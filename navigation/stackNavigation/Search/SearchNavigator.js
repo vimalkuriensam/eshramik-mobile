@@ -1,14 +1,18 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { Search as SearchScreen } from "../../../screen";
+import { Search as SearchScreen, searchScreenOptions } from "../../../screen";
 
 const SearchNav = createStackNavigator();
 
 const SearchNavigator = () => {
   return (
     <SearchNav.Navigator screenOptions={SearchNavDefaultOptions}>
-      <SearchNav.Screen name="SearchStack" component={SearchScreen} />
+      <SearchNav.Screen
+        options={searchScreenOptions}
+        name="SearchStack"
+        component={SearchScreen}
+      />
     </SearchNav.Navigator>
   );
 };
