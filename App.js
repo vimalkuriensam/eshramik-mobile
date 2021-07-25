@@ -6,7 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 
 import { store, persistor } from "./store/ConfigureStore";
-import NavigationContainer from "./navigation/NavigationContainer";
+import AppNavigator from "./navigation/NavigationContainer";
 import { injectStore } from "./authInterceptor/authAxios";
 import RootNavigator from "./navigation/RootNavigator";
 
@@ -39,7 +39,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer />
+        <AppNavigator />
       </PersistGate>
     </Provider>
   );

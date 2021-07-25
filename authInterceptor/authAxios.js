@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { NavigationActions } from "react-navigation";
+import { CommonActions } from "@react-navigation/native";
 import { BASE_URL } from "../static";
 
 let store;
@@ -33,11 +33,11 @@ const apiService = () => {
         if (error.response.status === 401) {
           console.log("token expired");
           store.dispatch({ type: "SET_LOGOUT" });
-          NavigationActions.navigate("Auth");
+          CommonActions.navigate("Auth");
           // resolve(true);
         } else if (error.response.status === 403) {
           store.dispatch({ type: "SET_LOGOUT" });
-          NavigationActions.navigate("Auth");
+          CommonActions.navigate("Auth");
           // resolve(true);
         }
         return reject(error);

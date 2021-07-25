@@ -4,14 +4,11 @@ import Login from "./container/Login";
 import OTP from "./container/OTP";
 import Signup from "./container/Signup";
 
-const AuthScreen = ({ navigation }) => {
-  const state = navigation.state.routeName;
+const AuthScreen = ({navigation, route}) => {
+  const state = route.name;
 
-  const onSignupRoute = () => {
-    navigation.navigate({
-      routeName: "Signup",
-    });
-  };
+  const onSignupRoute = () => navigation.navigate("Signup");
+  
 
   if (state === "Login")
     return <Login navigation={navigation} onSignupRoute={onSignupRoute} />;

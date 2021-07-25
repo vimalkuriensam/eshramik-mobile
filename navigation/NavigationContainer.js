@@ -1,21 +1,16 @@
-import React, { useEffect, useRef } from "react";
-import { NavigationActions } from "react-navigation";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { connect } from "react-redux";
-import RootNavigator from "./RootNavigator";
+import { AuthNavigator } from "./RootNavigator";
 
-const NavigationContainer = ({ isAuth }) => {
-  const navRef = useRef();
-  useEffect(() => {
-    if (!isAuth)
-      navRef.current.dispatch(
-        NavigationActions.navigate({
-          routeName: "Auth",
-        })
-      );
-  }, [isAuth]);
-  return <RootNavigator ref={navRef} />;
+const AppNavigator = ({ isAuth }) => {
+  return (
+    <NavigationContainer>
+      <AuthNavigator />
+    </NavigationContainer>
+  );
 };
 
 const mapStateToProps = (state) => ({ isAuth: !!state.auth.accessToken });
 
-export default connect(mapStateToProps)(NavigationContainer);
+export default connect(mapStateToProps)(AppNavigator);
