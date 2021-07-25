@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,11 +6,30 @@ import {
   Image,
   TouchableNativeFeedback,
 } from "react-native";
+import { connect } from "react-redux";
 import DefaultButton from "../../../components/atoms/DefaultButton";
 import DefaultInput from "../../../components/atoms/DefaultInput";
 import DefaultText from "../../../components/atoms/DefaultText";
+import { login } from "../../../store/actions/auth.action";
 
-const Login = ({ onSignupRoute }) => {
+const Login = ({ onSignupRoute, navigation, dispatch }) => {
+  const [mobile, setMobile] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onHandleMobile = ({ target }) => setMobile(target.value);
+
+  const onLoginSubmit = () => {
+    setIsLoading(true);
+    dispatch(login({ mobile, login: true }))
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+        navigation.navigate("OTP", {
+          mobile,
+        });
+      })
+      .catch(() => setIsLoading(false));
+  };
   return (
     <ScrollView style={{ paddingHorizontal: 16, flex: 1 }}>
       <View style={styles.imageContainer}>
@@ -18,13 +37,18 @@ const Login = ({ onSignupRoute }) => {
       </View>
       <View style={styles.actionContainer}>
         <DefaultInput
+          value={mobile}
+          onTextChange={onHandleMobile}
+          type="number"
+          keyboardType="phone-pad"
           style={styles.loginInputStyle}
           placeholder="Mobile number"
         />
         <DefaultButton
           variant="primary"
           title="Login"
-          onButtonPress={() => console.log("button pressed")}
+          onButtonPress={onLoginSubmit}
+          loader={isLoading}
         />
         <DefaultText style={styles.accountText}>
           <View>
@@ -68,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default connect()(Login);

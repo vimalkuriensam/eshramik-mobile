@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { enableScreens } from "react-native-screens";
-
-import RootNavigator from "./navigation/RootNavigator";
-import ConfigureStore from "./store/ConfigureStore";
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 
+import { store, persistor } from "./store/ConfigureStore";
+import AppNavigator from "./navigation/NavigationContainer";
+import { injectStore } from "./authInterceptor/authAxios";
+import RootNavigator from "./navigation/RootNavigator";
+
 enableScreens();
-
-const store = ConfigureStore();
-
+injectStore(store);
 const fetchFonts = () =>
   Font.loadAsync({
     "montserrat-bold": require("./assets/fonts/Montserrat-Bold.otf"),
@@ -37,7 +38,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <RootNavigator />
+      <PersistGate loading={null} persistor={persistor}>
+        <AppNavigator />
+      </PersistGate>
     </Provider>
   );
 };

@@ -15,6 +15,7 @@ import DefaultInput from "../../../components/atoms/DefaultInput";
 import DefaultText from "../../../components/atoms/DefaultText";
 import { Shade } from "../../../static/Colors";
 import { otpVerify } from "../../../store/actions/auth.action";
+import { getState } from "../../../store/actions/profile.action";
 import { OTP_AUTO_SUBMIT_TIME } from "../data";
 
 let autoSubmitOtpInterval;
@@ -47,7 +48,8 @@ const OTP = ({ navigation, dispatch }) => {
 
   const refCallback = (textInputRef) => (node) => (textInputRef.current = node);
 
-  const mobile = navigation.getParam('mobile');
+  const mobile = navigation.getParam("mobile");
+  const isLogin = navigation.getParam("isLogin");
 
   const onHandleOTP =
     (index) =>
@@ -88,9 +90,14 @@ const OTP = ({ navigation, dispatch }) => {
         otpVerify({
           otp: otpArray.join(""),
           mobile,
+          login: isLogin ? true : false,
         })
       )
-        .then(() => setLoader(false))
+        .then(async () => {
+          await dispatch(getState())
+          setLoader(false);
+          navigation.navigate("Profile");
+        })
         .catch((err) => {
           setLoader(false);
           setError(true);

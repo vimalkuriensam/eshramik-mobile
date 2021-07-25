@@ -1,11 +1,10 @@
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
-import { Colors } from "../../static/Colors";
+import { StyleSheet, View } from "react-native";
 import BodyTitle from "../atoms/BodyTitle";
+import DefaultRadio from "../atoms/DefaultRadio";
 import DefaultText from "../atoms/DefaultText";
-import Title from "../atoms/Title";
 
-const FormInput = ({ variant, label, style, onInputChange, ...rest }) => {
+const FormRadio = ({ label = "", variant, contents, ...rest }) => {
   const getLabel = () => {
     switch (variant) {
       case "primary":
@@ -17,19 +16,9 @@ const FormInput = ({ variant, label, style, onInputChange, ...rest }) => {
     }
   };
   return (
-    <View>
+    <View style={styles.radioContainer}>
       <View style={styles.labelContainer}>{getLabel()}</View>
-      <View>
-        <TextInput
-          style={{
-            ...styles.input,
-            height: variant === "primary" ? 32 : 54,
-            ...style,
-          }}
-          onChangeText={onInputChange}
-          {...rest}
-        />
-      </View>
+      <DefaultRadio contents={contents} {...rest} />
     </View>
   );
 };
@@ -38,11 +27,9 @@ const styles = StyleSheet.create({
   labelContainer: {
     marginVertical: 7,
   },
-  input: {
-    backgroundColor: Colors.greyLight,
-    borderRadius: 10,
-    paddingHorizontal: 10,
+  radioContainer: {
+    marginVertical: 10,
   },
 });
 
-export default FormInput;
+export default FormRadio;

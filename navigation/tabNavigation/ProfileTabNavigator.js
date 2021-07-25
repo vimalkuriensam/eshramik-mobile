@@ -1,5 +1,6 @@
 import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
+import { createStackNavigator } from "react-navigation-stack";
 import {
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
@@ -10,58 +11,31 @@ import { Colors } from "../../static/Colors";
 const tabScreenConfig = {
   Info: {
     screen: ProfileScreen,
-    navigationOptions: {
-      // tabBarIcon: (tabInfo) => (
-      //   <Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
-      // ),
-      tabBarLabel: "Personal Information",
-    },
   },
   Qualification: {
     screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: "Qualification",
-    },
   },
   Profession: {
     screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: "Profession",
-    },
   },
   Skill: {
     screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: "Skill",
-    },
   },
   EmployeeDetails: {
     screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: "Employment Details",
-    },
   },
   Overseas: {
     screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: "Overseas Opportunity",
-    },
   },
   Documents: {
     screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: "Documents",
-    },
   },
   Resume: {
     screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: "Resume Builder",
-    },
   },
 };
 
-const ProfileTopTabNavigator = createMaterialTopTabNavigator(tabScreenConfig, {
+const ProfileTopTabNavigator = createStackNavigator(tabScreenConfig, {
   tabBarOptions: {
     activeTintColor: Colors.white,
     inactiveTintColor: Colors.blackMain,
