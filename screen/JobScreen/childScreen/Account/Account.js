@@ -1,9 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { Shade } from "../../../../static/Colors";
 
 const Account = () => {
   return (
     <View style={styles.center}>
+      <StatusBar
+        currentHeight={"44"}
+        backgroundColor={Shade.primary}
+        style="light"
+      />
       <Text>Account Screen</Text>
     </View>
   );

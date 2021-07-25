@@ -1,17 +1,13 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import {
-  Home as HomeScreen,
-  Account as AccountScreen,
-  Saved as SavedScreen,
-  Search as SearchScreen,
-} from "../../screen";
 import { Shade } from "../../static/Colors";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import DefaultText from "../../components/atoms/DefaultText";
 import { Ionicons } from "@expo/vector-icons";
 import AccountNavigator from "../stackNavigation/Account/AccountNavigator";
+import HomeNavigator from "../stackNavigation/Home/HomeNavigator";
+import SaveNavigator from "../stackNavigation/Saved/SaveNavigator";
+import SearchNavigator from "../stackNavigation/Search/SearchNavigator";
 
 const { Navigator, Screen } = createMaterialBottomTabNavigator();
 
@@ -19,7 +15,7 @@ const JobsNavigator = () => (
   <Navigator labeled={false} barStyle={styles.bar}>
     <Screen
       name="Home"
-      component={HomeScreen}
+      component={HomeNavigator}
       options={{
         tabBarIcon: ({ focused }) => (
           <View style={{ ...styles.icons, opacity: focused ? 1 : 0.5 }}>
@@ -43,7 +39,7 @@ const JobsNavigator = () => (
     />
     <Screen
       name="Saved"
-      component={SavedScreen}
+      component={SaveNavigator}
       options={{
         tabBarIcon: ({ focused }) => (
           <View style={{ ...styles.icons, opacity: focused ? 1 : 0.5 }}>
@@ -55,7 +51,7 @@ const JobsNavigator = () => (
     />
     <Screen
       name="Search"
-      component={SearchScreen}
+      component={SearchNavigator}
       options={{
         tabBarIcon: ({ focused }) => (
           <View style={{ ...styles.icons, opacity: focused ? 1 : 0.5 }}>
