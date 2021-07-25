@@ -106,6 +106,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: Shade.tertiary,
   },
+  "pl5-1": {
+    fontFamily: "poppins-light",
+    fontSize: 13,
+    color: Shade.white,
+  },
   "pr1-1": {
     fontFamily: "poppins-regular",
     fontSize: 16,
